@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <Extern href="stdidcmd.h"/>
+    <Extern href="vsshlids.h"/>
+    <Include href="KnownImageIds.vsct"/>
+
+    <Commands package="guidVSPackage">
+        <Groups>
+            <Group guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+            </Group>
+        </Groups>
+
+        <Buttons>
+            <Button guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0100" type="Button">
+                <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+                <Icon guid="ImageCatalogGuid" id="NewPackage" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <Strings>
+                    <ButtonText>Quick Install Package...</ButtonText>
+                </Strings>
+            </Button>
+        </Buttons>
+    </Commands>
+
+    <CommandPlacements>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBFOLDER"/>
+        </CommandPlacement>
+    </CommandPlacements>
+
+    <KeyBindings>
+        <KeyBinding guid="guidVSPackageCmdSet" id="InstallPackageId" mod1="Shift Alt" key1="0" editor="guidVSStd97"/>
+    </KeyBindings>
+
+    <Symbols>
+        <!-- This is the package guid. -->
+        <GuidSymbol name="guidVSPackage" value="{f91d6656-dccf-400f-843d-1ff49242cf4b}" />
+
+        <GuidSymbol name="guidVSPackageCmdSet" value="{c0f38f12-aa45-4a08-9305-30003a67fecc}">
+            <IDSymbol name="MyMenuGroup" value="0x1020" />
+            <IDSymbol name="InstallPackageId" value="0x0100" />
+        </GuidSymbol>
+    </Symbols>
+</CommandTable>
