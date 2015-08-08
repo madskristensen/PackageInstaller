@@ -10,3 +10,15 @@ Download the extension at the
 or get the
 [nightly build](http://vsixgallery.com/extension/fdd64809-376e-4542-92ce-808a8df06bcc/)
 
+### Auto completion
+
+![auto completion](art/dialog.png)
+
+Also for version numbers:
+
+![auto completion](art/dialog-versions.png)
+
+### Keyboard shortcut
+
+The fastest way to display the dialog is to use the keyboard
+shortcut `Shift+Alt+0`.

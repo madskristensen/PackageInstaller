@@ -8,6 +8,7 @@ namespace PackageInstaller
     public partial class InstallDialog : Window
     {
         private IEnumerable<IPackageProvider> _providers;
+        private string _lastSearch;
 
         public InstallDialog(params IPackageProvider[] providers)
         {
@@ -31,6 +32,11 @@ namespace PackageInstaller
 
         private async void VersionFocus(object sender, RoutedEventArgs e)
         {
+            if (cbName.Text == _lastSearch)
+                return;
+
+            _lastSearch = cbName.Text;
+
             cbVersion.ItemsSource = new[] { "Loading..." };
 
             var versions = await Provider.GetVersion(cbName.Text.Trim());

@@ -52,7 +52,7 @@ namespace PackageInstaller
             Instance = new InstallPackage(package);
         }
 
-        private async void MenuItemCallback(object sender, EventArgs e)
+        private void MenuItemCallback(object sender, EventArgs e)
         {
             Project project = ProjectHelpers.GetSelectedProject();
 
