@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Interop;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -13,6 +14,7 @@ namespace PackageInstaller
         public const int CommandId = PackageCommands.InstallPackageId;
         public static readonly Guid CommandSet = GuidList.guidVSPackageCmdSet;
         private readonly Package package;
+        private Project _project;
 
         private InstallPackage(Package package)
         {
@@ -31,16 +33,12 @@ namespace PackageInstaller
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (OleMenuCommand)sender;
-            Project project = ProjectHelpers.GetSelectedProject();
+            _project = ProjectHelpers.GetSelectedProject();
 
-            button.Enabled = button.Visible = project != null;
+            button.Enabled = button.Visible = _project != null;
         }
 
-        public static InstallPackage Instance
-        {
-            get;
-            private set;
-        }
+        public static InstallPackage Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
         {
@@ -54,12 +52,15 @@ namespace PackageInstaller
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            Project project = ProjectHelpers.GetSelectedProject();
-
-            if (project == null)
+            if (_project == null)
                 return;
 
             InstallDialog dialog = new InstallDialog(new Bower(), new Npm());
+
+            //IntPtr hwnd = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+            //var helper = new WindowInteropHelper(dialog);
+            //helper.Owner = hwnd;
+
             var result = dialog.ShowDialog();
 
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
@@ -67,7 +68,7 @@ namespace PackageInstaller
 
             VSPackage._dte.StatusBar.Text = $"Installing {dialog.Package} package from {dialog.Provider.Name}...";
 
-            dialog.Provider.InstallPackage(project, dialog.Package, null);
+            dialog.Provider.InstallPackage(_project, dialog.Package, null);
         }
     }
 }

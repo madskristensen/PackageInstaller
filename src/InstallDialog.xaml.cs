@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,7 @@ namespace PackageInstaller
                 cbName.Focus();
 
                 cbVersion.ItemsSource = new[] { "Latest version" };
-                cbVersion.GotFocus += VersionFocus;
+                cbVersion.DropDownOpened += VersionFocus;
 
                 cbType.ItemsSource = _providers;
                 cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
@@ -30,7 +31,7 @@ namespace PackageInstaller
             };
         }
 
-        private async void VersionFocus(object sender, RoutedEventArgs e)
+        private async void VersionFocus(object sender, EventArgs e)
         {
             if (cbName.Text == _lastSearch)
                 return;
@@ -38,6 +39,7 @@ namespace PackageInstaller
             _lastSearch = cbName.Text;
 
             cbVersion.ItemsSource = new[] { "Loading..." };
+            cbVersion.SelectedIndex = 0;
 
             var versions = await Provider.GetVersion(cbName.Text.Trim());
 

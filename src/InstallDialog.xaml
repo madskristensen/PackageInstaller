@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PackageInstaller.InstallDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
+        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
         <ComboBox x:Name="cbType" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="75" />
         <ComboBox x:Name="cbName" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" Margin="90,20,135,0" VerticalAlignment="Top" IsEditable="True">

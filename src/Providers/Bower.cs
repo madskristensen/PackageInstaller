@@ -49,7 +49,10 @@ namespace PackageInstaller
 
                 foreach (Match match in _regex.Matches(output))
                 {
-                    list.Add(match.Groups["version"].Value);
+                    string version = match.Groups["version"].Value;
+
+                    if (!list.Contains(version) && !version.Contains('+'))
+                        list.Add(version);
                 }
             }
 
