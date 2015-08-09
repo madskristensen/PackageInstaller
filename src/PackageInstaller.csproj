@@ -53,10 +53,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\ProjectHelpers.cs" />
-    <Compile Include="InstallPackage.cs" />
+    <Compile Include="Commands\InstallPackage.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="InstallDialog.xaml.cs">
+    <Compile Include="Commands\InstallDialog.xaml.cs">
       <DependentUpon>InstallDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\BasePackageProvider.cs" />
@@ -75,7 +75,6 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -217,7 +216,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="InstallDialog.xaml">
+    <Page Include="Commands\InstallDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
