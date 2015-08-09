@@ -28,6 +28,13 @@ Also for version numbers for both Bower and npm:
 
 ![auto completion](art/dialog-versions.png)
 
+### bower.json / package.json
+
+You can install packages without having set up Bower or npm.
+
+This extension will automatically create the JSON configuration
+files, so you don't have to worry about it.
+
 ### Keyboard shortcut
 
 The fastest way to display the dialog is to use the keyboard
