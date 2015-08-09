@@ -13,6 +13,8 @@ namespace PackageInstaller
 {
     class Bower : BasePackageProvider
     {
+        private static bool _isDownloading;
+
         public override string Name
         {
             get { return "Bower"; }
@@ -61,6 +63,9 @@ namespace PackageInstaller
 
         public override void InstallPackage(Project project, string packageName, string version)
         {
+            if (!string.IsNullOrEmpty(version))
+                packageName += $"#{version}";
+
             string arg = $"/c bower install {packageName} --save --no-color";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "bower.json");
@@ -77,26 +82,40 @@ namespace PackageInstaller
 
         private static async Task<IEnumerable<string>> UpdateFileCache(string file, string url)
         {
-            IEnumerable<string> list;
-
-            if (!File.Exists(file) || File.GetLastWriteTime(file) < DateTime.Now.AddDays(-1))
+            if (!File.Exists(file))
             {
                 using (var client = new WebClient())
                 {
                     string json = await client.DownloadStringTaskAsync(url);
-                    list = ToList(json);
+                    var list = ToList(json);
                     File.WriteAllLines(file, list);
-                }
-            }
-            else
-            {
-                using (TextReader reader = File.OpenText(file))
-                {
-                    list = await Task.Run(() => File.ReadAllLines(file));
+
+                    return list;
                 }
             }
 
-            return list;
+            if (!_isDownloading && File.GetLastWriteTime(file) < DateTime.Now.AddDays(-1))
+            {
+                _isDownloading = true;
+
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+                {
+                    try
+                    {
+                        using (var client = new WebClient())
+                        {
+                            string json = client.DownloadString(url);
+                            var list = ToList(json);
+                            File.WriteAllLines(file, list);
+                        }
+                    }
+                    catch (Exception) {}
+
+                    _isDownloading = false;
+                });
+            }
+
+            return await Task.Run(() => File.ReadAllLines(file));
         }
 
         private static IEnumerable<string> ToList(string json)

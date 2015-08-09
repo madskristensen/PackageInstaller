@@ -10,6 +10,8 @@ namespace PackageInstaller
     {
         private IEnumerable<IPackageProvider> _providers;
         private string _lastSearch;
+        private const string LATEST = "Latest version";
+        private const string LOADING = "Loading...";
 
         public InstallDialog(params IPackageProvider[] providers)
         {
@@ -21,7 +23,7 @@ namespace PackageInstaller
             {
                 cbName.Focus();
 
-                cbVersion.ItemsSource = new[] { "Latest version" };
+                cbVersion.ItemsSource = new[] { LATEST };
                 cbVersion.DropDownOpened += VersionFocus;
 
                 cbType.ItemsSource = _providers;
@@ -38,7 +40,7 @@ namespace PackageInstaller
 
             _lastSearch = cbName.Text;
 
-            cbVersion.ItemsSource = new[] { "Loading..." };
+            cbVersion.ItemsSource = new[] { LOADING };
             cbVersion.SelectedIndex = 0;
 
             var versions = await Provider.GetVersion(cbName.Text.Trim());
@@ -46,7 +48,7 @@ namespace PackageInstaller
             if (versions.Any())
                 cbVersion.ItemsSource = versions;
             else
-                cbVersion.ItemsSource = new[] { "Latest version" };
+                cbVersion.ItemsSource = new[] { LATEST };
 
             cbVersion.SelectedIndex = 0;
         }
@@ -64,6 +66,17 @@ namespace PackageInstaller
         public IPackageProvider Provider
         {
             get { return (IPackageProvider)cbType.SelectedItem; }
+        }
+
+        public string Version
+        {
+            get
+            {
+                if (cbVersion.Text == LATEST || cbVersion.Text == LOADING)
+                    return null;
+
+                return cbVersion.Text;
+            }
         }
 
         private async void GetPackages()

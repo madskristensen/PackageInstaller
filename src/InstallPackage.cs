@@ -1,11 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.IO;
-using System.Windows.Interop;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace PackageInstaller
 {
@@ -68,7 +64,7 @@ namespace PackageInstaller
 
             VSPackage._dte.StatusBar.Text = $"Installing {dialog.Package} package from {dialog.Provider.Name}...";
 
-            dialog.Provider.InstallPackage(_project, dialog.Package, null);
+            dialog.Provider.InstallPackage(_project, dialog.Package, dialog.Version);
         }
     }
 }

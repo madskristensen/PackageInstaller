@@ -54,6 +54,9 @@ namespace PackageInstaller
 
         public override void InstallPackage(Project project, string packageName, string version)
         {
+            if (!string.IsNullOrEmpty(version))
+                packageName += $"@{version}";
+
             string arg = $"/c npm install {packageName} --save";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "package.json");
