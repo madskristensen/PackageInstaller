@@ -11,7 +11,6 @@ namespace PackageInstaller
 {
     public abstract class BasePackageProvider : IPackageProvider
     {
-        private StringBuilder _error = new StringBuilder();
         public abstract string Name { get; }
 
         public abstract ImageSource Icon { get; }
@@ -22,50 +21,53 @@ namespace PackageInstaller
 
         public abstract Task<IEnumerable<string>> GetVersion(string packageName);
 
-        protected virtual async void CallCommand(string argument, string cwd)
+        protected virtual void CallCommand(string argument, string cwd)
         {
-            ProcessStartInfo start = new ProcessStartInfo
+            System.Threading.ThreadPool.QueueUserWorkItem(async (o) =>
             {
-                WorkingDirectory = cwd,
-                UseShellExecute = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                CreateNoWindow = true,
-                FileName = "cmd.exe",
-                Arguments = argument,
-                RedirectStandardError = true,
-                StandardErrorEncoding = Encoding.UTF8,
-            };
-
-            ModifyPathVariable(start);
-
-            try
-            {
-                var p = System.Diagnostics.Process.Start(start);
-                var error = await p.StandardError.ReadToEndAsync();
-                p.WaitForExit();
-                p.Dispose();
-
-                if (string.IsNullOrEmpty(error))
+                ProcessStartInfo start = new ProcessStartInfo
                 {
-                    VSPackage._dte.StatusBar.Text = "Package installed";
-                }
-                else
-                {
-                    VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
-                    Logger.Log(error, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
-                Logger.Log(ex, true);
-            }
-        }
+                    WorkingDirectory = cwd,
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true,
+                    FileName = "cmd.exe",
+                    Arguments = argument,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    StandardErrorEncoding = Encoding.UTF8,
+                    StandardOutputEncoding = Encoding.UTF8,
+                };
 
-        private void P_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data != null)
-                _error.Append(e.Data);
+                ModifyPathVariable(start);
+
+                try
+                {
+                    using (var p = System.Diagnostics.Process.Start(start))
+                    {
+                        var error = await p.StandardError.ReadToEndAsync();
+                        var output = await p.StandardOutput.ReadToEndAsync();
+                        p.WaitForExit();
+
+                        Logger.Log(output, true);
+
+                        if (p.ExitCode == 0)
+                        {
+                            VSPackage.UpdateStatus("Package installed");
+                        }
+                        else
+                        {
+                            VSPackage.UpdateStatus("An error installing package. See output window for details");
+                            Logger.Log(error, true);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    VSPackage.UpdateStatus("An error installing package. See output window for details");
+                    Logger.Log(ex, true);
+                }
+            });
         }
 
         protected static void ModifyPathVariable(ProcessStartInfo start)

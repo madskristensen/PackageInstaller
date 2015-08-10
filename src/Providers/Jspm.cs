@@ -71,7 +71,10 @@ namespace PackageInstaller
                 var jspm = root.Children<JProperty>().FirstOrDefault(prop => prop.Name == "jspm");
                 return jspm != null;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
 
             return false;
         }

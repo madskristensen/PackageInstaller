@@ -65,5 +65,25 @@ namespace PackageInstaller
 
             return null;
         }
+
+        public static void AddFileToProject(this Project project, string file, string itemType = null)
+        {
+            if (project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5 projects
+                return;
+
+            try
+            {
+                ProjectItem item = project.ProjectItems.AddFromFile(file);
+
+                if (string.IsNullOrEmpty(itemType) || project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase)) // Website
+                    return;
+
+                item.Properties.Item("ItemType").Value = "None";
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
     }
 }

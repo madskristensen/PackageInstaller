@@ -56,7 +56,7 @@ namespace PackageInstaller
                    where char.IsNumber(version.Name[0])
                    orderby version.Name descending
                    select version.Name;
-    }
+        }
 
         public override void InstallPackage(Project project, string packageName, string version)
         {
@@ -74,7 +74,45 @@ namespace PackageInstaller
                 project.ProjectItems.AddFromFile(json);
             }
 
+            AddAdditionalFiles(project, cwd, packageName);
             CallCommand(arg, cwd);
+        }
+
+        private static void AddAdditionalFiles(Project project, string cwd, string packageName)
+        {
+            string file = string.Empty;
+            string content = string.Empty;
+
+            if (packageName == "gulp")
+            {
+                file = "gulpfile.js";
+                content = "var gulp = require(\"gulp\");" + Environment.NewLine;
+            }
+            else if (packageName == "grunt")
+            {
+                file = "gruntfile.js";
+                content = "var gulp = require(\"grunt\");" + Environment.NewLine;
+            }
+            else if (packageName == "broccoli")
+            {
+                file = "brocfile.js";
+            }
+
+            string fullName = Path.Combine(cwd, file);
+
+            if (!string.IsNullOrEmpty(file) && !File.Exists(fullName))
+            {
+                try
+                {
+                    File.WriteAllText(fullName, content);
+                    VSPackage._dte.ItemOperations.OpenFile(fullName);
+                    project.AddFileToProject(fullName, "None");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+            }
         }
     }
 }

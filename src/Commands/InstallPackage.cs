@@ -59,7 +59,7 @@ namespace PackageInstaller
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
                 return;
 
-            VSPackage._dte.StatusBar.Text = $"Installing {dialog.Package} package from {dialog.Provider.Name}...";
+            VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
             dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
         }
