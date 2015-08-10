@@ -1,7 +1,7 @@
 # Roadmap
 
 - [ ] NuGet integration
-- [ ] JSPM integration
+- [x] JSPM integration
 - [ ] npm package name Intellisense (blocked by npm)
 
 Features that have a checkmark are complete and available for

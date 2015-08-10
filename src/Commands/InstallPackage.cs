@@ -53,7 +53,7 @@ namespace PackageInstaller
             if (project == null)
                 return;
 
-            InstallDialog dialog = new InstallDialog(new Bower(), new Npm());
+            InstallDialog dialog = new InstallDialog(new Bower(), new Npm(), new Jspm());
             var result = dialog.ShowDialog();
 
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)

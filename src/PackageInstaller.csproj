@@ -60,6 +60,7 @@
       <DependentUpon>InstallDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\BasePackageProvider.cs" />
+    <Compile Include="Providers\Jspm.cs" />
     <Compile Include="Providers\Npm.cs" />
     <Compile Include="Providers\Bower.cs" />
     <Compile Include="Providers\IPackageProvider.cs" />
@@ -199,6 +200,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Resources\npm.png" />
+    <Resource Include="Resources\jspm.png" />
     <Content Include="Resources\preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
