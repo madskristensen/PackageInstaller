@@ -49,6 +49,9 @@ namespace PackageInstaller
                 cbVersion.ItemsSource = versions;
             else
                 cbVersion.ItemsSource = new[] { LATEST };
+
+            if (string.IsNullOrWhiteSpace(cbVersion.Text))
+                cbVersion.SelectedIndex = 0;
         }
 
         private void TypeChanged(object sender, SelectionChangedEventArgs e)
@@ -92,6 +95,17 @@ namespace PackageInstaller
         {
             DialogResult = true;
             Close();
+        }
+
+        private void cbName_TextChanged(object sender, RoutedEventArgs e)
+        {
+            cbVersion.IsEnabled = !string.IsNullOrWhiteSpace(cbName.Text);
+
+            cbVersion.ItemsSource = new[] { LATEST };
+            cbVersion.SelectedIndex = 0;
+
+            if (!cbVersion.IsEnabled)
+                cbVersion.Text = LATEST;
         }
     }
 }
