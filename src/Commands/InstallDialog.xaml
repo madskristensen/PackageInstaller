@@ -11,7 +11,7 @@
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <ComboBox x:Name="cbVersion" HorizontalAlignment="Right" Margin="0,20,10,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
+        <ComboBox x:Name="cbVersion" HorizontalAlignment="Right" Margin="0,20,10,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEditable="True" />
         <Button x:Name="btnInstall" Content="Install" HorizontalAlignment="Right" Margin="0,0,100,10" VerticalAlignment="Bottom" Width="75" IsDefault="True" Click="btnInstall_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" IsCancel="True"/>
 

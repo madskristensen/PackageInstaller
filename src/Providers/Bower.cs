@@ -14,6 +14,7 @@ namespace PackageInstaller
     class Bower : BasePackageProvider
     {
         private static bool _isDownloading;
+        private static Dictionary<string, IEnumerable<string>> _versions = new Dictionary<string, IEnumerable<string>>();
 
         public override string Name
         {
@@ -32,6 +33,9 @@ namespace PackageInstaller
 
         public async override Task<IEnumerable<string>> GetVersion(string packageName)
         {
+            if (_versions.ContainsKey(packageName))
+                return _versions[packageName];
+
             var start = new System.Diagnostics.ProcessStartInfo("cmd", "/c bower info " + packageName)
             {
                 UseShellExecute = false,
@@ -57,6 +61,8 @@ namespace PackageInstaller
                         list.Add(version);
                 }
             }
+
+            _versions.Add(packageName, list);
 
             return list;
         }

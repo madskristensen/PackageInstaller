@@ -24,7 +24,7 @@ namespace PackageInstaller
                 cbName.Focus();
 
                 cbVersion.ItemsSource = new[] { LATEST };
-                cbVersion.DropDownOpened += VersionFocus;
+                cbVersion.GotFocus += VersionFocus;
 
                 cbType.ItemsSource = _providers;
                 cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
@@ -50,7 +50,7 @@ namespace PackageInstaller
             else
                 cbVersion.ItemsSource = new[] { LATEST };
 
-            cbVersion.SelectedIndex = 0;
+            //cbVersion.SelectedIndex = 0;
         }
 
         private void CbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,7 +72,7 @@ namespace PackageInstaller
         {
             get
             {
-                if (cbVersion.Text == LATEST || cbVersion.Text == LOADING)
+                if (cbVersion.Text == LATEST || cbVersion.Text == LOADING || string.IsNullOrWhiteSpace(cbVersion.Text))
                     return null;
 
                 return cbVersion.Text;
