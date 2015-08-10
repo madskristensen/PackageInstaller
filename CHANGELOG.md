@@ -5,6 +5,7 @@
 - [ ] npm package name Intellisense (blocked by npm)
 - [x] Create Grunt-/Gulp-/BrocFile.js automatically
 - [x] Make package install async (#1)
+- [x] Store last used provider on re-entry
 
 Features that have a checkmark are complete and available for
 download in the

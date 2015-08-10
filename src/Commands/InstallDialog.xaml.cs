@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell.Settings;
 
 namespace PackageInstaller
 {
     public partial class InstallDialog : Window
     {
+        private SettingsManager _settings;
         private IEnumerable<IPackageProvider> _providers;
         private string _lastSearch;
         private const string LATEST = "Latest version";
         private const string LOADING = "Loading...";
 
-        public InstallDialog(params IPackageProvider[] providers)
+        public InstallDialog(IServiceProvider serviceProvider, params IPackageProvider[] providers)
         {
             InitializeComponent();
 
@@ -21,6 +24,9 @@ namespace PackageInstaller
 
             Loaded += (s, e) =>
             {
+                _settings = new ShellSettingsManager(serviceProvider);
+
+                Closing += StoreLastUsed;
                 cbName.Focus();
 
                 cbVersion.ItemsSource = new[] { LATEST };
@@ -29,7 +35,19 @@ namespace PackageInstaller
                 cbType.ItemsSource = _providers;
                 cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
                 cbType.SelectionChanged += TypeChanged;
-                cbType.SelectedIndex = 0;
+
+                string lastUsed = GetLastUsed();
+
+                if (string.IsNullOrEmpty(lastUsed))
+                {
+                    cbType.SelectedIndex = 0;
+                }
+                else
+                {
+                    var provider = providers.FirstOrDefault(p => p.Name.Equals(lastUsed, StringComparison.OrdinalIgnoreCase));
+                    if (provider != null)
+                        cbType.SelectedItem = provider;
+                }
             };
         }
 
@@ -58,6 +76,7 @@ namespace PackageInstaller
         {
             ComboBox box = (ComboBox)sender;
             IPackageProvider provider = (IPackageProvider)box.SelectedItem;
+
 
             Icon = provider.Icon;
             Title = $"Install {provider.Name} package";
@@ -106,6 +125,38 @@ namespace PackageInstaller
 
             if (!cbVersion.IsEnabled)
                 cbVersion.Text = LATEST;
+        }
+
+        private string GetLastUsed()
+        {
+            try {
+                SettingsStore store = _settings.GetReadOnlySettingsStore(SettingsScope.UserSettings);
+                return store.GetString("PackageInstaller", "type", null);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return null;
+            }
+        }
+
+        private void StoreLastUsed(object sender, EventArgs e)
+        {
+            Closing -= StoreLastUsed;
+
+            try
+            {
+                WritableSettingsStore wstore = _settings.GetWritableSettingsStore(SettingsScope.UserSettings);
+
+                if (!wstore.CollectionExists("PackageInstaller"))
+                    wstore.CreateCollection("PackageInstaller");
+
+                wstore.SetString("PackageInstaller", "type", cbType.Text);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
     }
 }

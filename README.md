@@ -14,6 +14,13 @@ See the
 [changelog](https://github.com/madskristensen/PackageIntellisense/blob/master/CHANGELOG.md)
 for changes and roadmap.
 
+### Features
+
+- Supports Bower, npm and JSPM
+- Automatically creates package.json or bower.json if missing
+- Automatically creates gulp-/grunt-/brocfile.js if they are being installed using npm
+- Selects the last used package manager
+
 ### Install a package
 
 Simply right-click the project and select "Quick Install Package..."
