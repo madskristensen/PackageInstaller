@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using EnvDTE;
 
 namespace PackageInstaller
@@ -12,6 +13,8 @@ namespace PackageInstaller
     {
         private StringBuilder _error = new StringBuilder();
         public abstract string Name { get; }
+
+        public abstract ImageSource Icon { get; }
 
         public abstract Task<IEnumerable<string>> GetPackages();
 

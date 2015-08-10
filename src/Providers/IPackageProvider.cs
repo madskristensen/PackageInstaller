@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using EnvDTE;
 
 namespace PackageInstaller
@@ -10,6 +8,8 @@ namespace PackageInstaller
     public interface IPackageProvider
     {
         string Name { get; }
+
+        ImageSource Icon { get;  }
 
         Task<IEnumerable<string>> GetPackages();
 

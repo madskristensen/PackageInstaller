@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using EnvDTE;
 using Newtonsoft.Json.Linq;
 
@@ -12,9 +14,16 @@ namespace PackageInstaller
 {
     class Npm : BasePackageProvider
     {
+        private static ImageSource _icon = BitmapFrame.Create(new Uri("pack://application:,,,/PackageInstaller;component/Resources/npm.png", UriKind.RelativeOrAbsolute));
+
         public override string Name
         {
             get { return "npm"; }
+        }
+
+        public override ImageSource Icon
+        {
+            get { return _icon; }
         }
 
         public override async Task<IEnumerable<string>> GetPackages()

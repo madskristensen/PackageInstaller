@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using EnvDTE;
 using Newtonsoft.Json.Linq;
 
@@ -14,11 +16,17 @@ namespace PackageInstaller
     class Bower : BasePackageProvider
     {
         private static bool _isDownloading;
+        private static ImageSource _icon = BitmapFrame.Create(new Uri("pack://application:,,,/PackageInstaller;component/Resources/bower.png", UriKind.RelativeOrAbsolute));
         private static Dictionary<string, IEnumerable<string>> _versions = new Dictionary<string, IEnumerable<string>>();
 
         public override string Name
         {
             get { return "Bower"; }
+        }
+
+        public override ImageSource Icon
+        {
+            get { return _icon; }
         }
 
         public override async Task<IEnumerable<string>> GetPackages()

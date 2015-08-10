@@ -28,7 +28,7 @@ namespace PackageInstaller
 
                 cbType.ItemsSource = _providers;
                 cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
-                cbType.SelectionChanged += CbType_SelectionChanged;
+                cbType.SelectionChanged += TypeChanged;
                 cbType.SelectedIndex = 0;
             };
         }
@@ -49,12 +49,16 @@ namespace PackageInstaller
                 cbVersion.ItemsSource = versions;
             else
                 cbVersion.ItemsSource = new[] { LATEST };
-
-            //cbVersion.SelectedIndex = 0;
         }
 
-        private void CbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TypeChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBox box = (ComboBox)sender;
+            IPackageProvider provider = (IPackageProvider)box.SelectedItem;
+
+            Icon = provider.Icon;
+            Title = $"Install {provider.Name} package";
+
             GetPackages();
         }
 

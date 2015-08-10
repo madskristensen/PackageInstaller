@@ -48,15 +48,12 @@ namespace PackageInstaller
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            if (_project == null)
+            Project project = _project ?? ProjectHelpers.GetSelectedProject();
+
+            if (project == null)
                 return;
 
             InstallDialog dialog = new InstallDialog(new Bower(), new Npm());
-
-            //IntPtr hwnd = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-            //var helper = new WindowInteropHelper(dialog);
-            //helper.Owner = hwnd;
-
             var result = dialog.ShowDialog();
 
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
@@ -64,7 +61,7 @@ namespace PackageInstaller
 
             VSPackage._dte.StatusBar.Text = $"Installing {dialog.Package} package from {dialog.Provider.Name}...";
 
-            dialog.Provider.InstallPackage(_project, dialog.Package, dialog.Version);
+            dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
         }
     }
 }
