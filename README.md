@@ -10,6 +10,10 @@ Download the extension at the
 or get the
 [nightly build](http://vsixgallery.com/extension/fdd64809-376e-4542-92ce-808a8df06bcc/)
 
+See the
+[changelog](https://github.com/madskristensen/PackageIntellisense/blob/master/CHANGELOG.md)
+for changes and roadmap.
+
 ### Install a package
 
 Simply right-click the project and select "Quick Install Package..."
