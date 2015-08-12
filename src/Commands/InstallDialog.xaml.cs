@@ -25,11 +25,9 @@ namespace PackageInstaller
             Loaded += (s, e) =>
             {
                 _settings = new ShellSettingsManager(serviceProvider);
-                
+
                 Closing += StoreLastUsed;
                 cbName.Focus();
-
-                Caption.MouseDown += delegate { DragMove(); };
 
                 cbVersion.ItemsSource = new[] { LATEST };
                 cbVersion.GotFocus += VersionFocus;
@@ -55,10 +53,10 @@ namespace PackageInstaller
 
         private async void VersionFocus(object sender, EventArgs e)
         {
-            if (cbName.Text == _lastSearch)
+            if (_lastSearch == Provider.Name + cbName.Text)
                 return;
 
-            _lastSearch = cbName.Text;
+            _lastSearch = Provider.Name + cbName.Text;
 
             cbVersion.ItemsSource = new[] { LOADING };
             cbVersion.SelectedIndex = 0;
@@ -78,8 +76,8 @@ namespace PackageInstaller
         {
             ComboBox box = (ComboBox)sender;
             IPackageProvider provider = (IPackageProvider)box.SelectedItem;
-            
-            lblTitle.Content = $"Install {provider.Name} package";
+
+            Title = $"Install {provider.Name} package";
 
             GetPackages();
         }
