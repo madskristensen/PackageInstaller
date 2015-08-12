@@ -17,6 +17,7 @@ for changes and roadmap.
 ### Features
 
 - Supports Bower, npm and JSPM
+- Intellisense for package names and versions
 - Automatically creates package.json or bower.json if missing
 - Automatically creates gulp-/grunt-/brocfile.js if they are being installed using npm
 - Selects the last used package manager
@@ -28,12 +29,20 @@ to pop open the installer dialog box.
 
 ![Context menu](art/context-menu.png)
 
+### Choose package manager
+
+Select which package manager to use.
+
+![auto completion](art/dialog.png)
+
+You choice is remembered for next time you open the dialog.
+
 ### Auto completion
 
 You get full auto completion for all package names available
-in the Bower registry.
+in the Bower and JSPM registry.
 
-![auto completion](art/dialog.png)
+![auto completion](art/dialog-names.png)
 
 Also for version numbers for both Bower and npm:
 
