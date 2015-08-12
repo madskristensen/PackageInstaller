@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PackageInstaller.InstallDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None">
+        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" BorderThickness="1" BorderBrush="Gray">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
