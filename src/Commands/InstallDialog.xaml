@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <ComboBox x:Name="cbType" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="75" />
-        <ComboBox x:Name="cbName" Grid.Row="0" Grid.Column="1" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch" IsEditable="True" TextBoxBase.TextChanged="cbName_TextChanged">
+        <ComboBox x:Name="cbName" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch" IsEditable="True" TextBoxBase.TextChanged="cbName_TextChanged">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
