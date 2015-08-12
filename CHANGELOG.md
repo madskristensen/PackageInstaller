@@ -1,9 +1,5 @@
 # Roadmap
 
-- [x] JSPM integration
-- [x] Create Grunt-/Gulp-/BrocFile.js automatically
-- [x] Make package install async (#1)
-- [x] Store last used provider on re-entry
 - [ ] NuGet integration
 - [ ] npm package name Intellisense (blocked by npm)
 
@@ -15,6 +11,15 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.1
+
+**2015-08-12**
+
+- [x] JSPM integration
+- [x] Create Grunt-/Gulp-/BrocFile.js automatically
+- [x] Make package install async (#1)
+- [x] Store last used provider on re-entry
 
 ## 1.0
 
