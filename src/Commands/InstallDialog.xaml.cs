@@ -25,9 +25,11 @@ namespace PackageInstaller
             Loaded += (s, e) =>
             {
                 _settings = new ShellSettingsManager(serviceProvider);
-
+                
                 Closing += StoreLastUsed;
                 cbName.Focus();
+
+                Caption.MouseDown += delegate { DragMove(); };
 
                 cbVersion.ItemsSource = new[] { LATEST };
                 cbVersion.GotFocus += VersionFocus;
@@ -76,10 +78,8 @@ namespace PackageInstaller
         {
             ComboBox box = (ComboBox)sender;
             IPackageProvider provider = (IPackageProvider)box.SelectedItem;
-
-
-            Icon = provider.Icon;
-            Title = $"Install {provider.Name} package";
+            
+            lblTitle.Content = $"Install {provider.Name} package";
 
             GetPackages();
         }
@@ -129,7 +129,8 @@ namespace PackageInstaller
 
         private string GetLastUsed()
         {
-            try {
+            try
+            {
                 SettingsStore store = _settings.GetReadOnlySettingsStore(SettingsScope.UserSettings);
                 return store.GetString("PackageInstaller", "type", null);
             }
