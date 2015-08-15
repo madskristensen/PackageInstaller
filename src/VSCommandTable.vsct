@@ -26,13 +26,7 @@
 
     <CommandPlacements>
         <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
-        </CommandPlacement>
-        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
-        </CommandPlacement>
-        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBFOLDER"/>
         </CommandPlacement>
     </CommandPlacements>
 
