@@ -72,7 +72,7 @@ namespace PackageInstaller
 
         protected static void ModifyPathVariable(ProcessStartInfo start)
         {
-            string path = start.EnvironmentVariables["PATH"];
+            string path = ".\\node_modules\\.bin" + ";" + start.EnvironmentVariables["PATH"];
 
             string toolsDir = Environment.GetEnvironmentVariable("VS140COMNTOOLS");
 
@@ -80,6 +80,7 @@ namespace PackageInstaller
             {
                 string parent = Directory.GetParent(toolsDir).Parent.FullName;
                 path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External");
+                path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External\git");
             }
 
             start.EnvironmentVariables["PATH"] = path;
