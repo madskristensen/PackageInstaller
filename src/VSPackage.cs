@@ -30,8 +30,17 @@ namespace PackageInstaller
 
         public static void UpdateStatus(string text)
         {
-            _dispatcher.BeginInvoke(new Action(() => {
+            _dispatcher.BeginInvoke(new Action(() =>
+            {
                 _dte.StatusBar.Text = text;
+            }), DispatcherPriority.ApplicationIdle, null);
+        }
+
+        public static void AnimateStatusBar(bool animate)
+        {
+            _dispatcher.BeginInvoke(new Action(() =>
+            {
+                _dte.StatusBar.Animate(animate, vsStatusAnimation.vsStatusAnimationGeneral);
             }), DispatcherPriority.ApplicationIdle, null);
         }
     }

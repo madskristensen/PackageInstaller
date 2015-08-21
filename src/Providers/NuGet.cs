@@ -37,7 +37,8 @@ namespace PackageInstaller
 
         public override async Task<IEnumerable<string>> GetPackages(string term)
         {
-            string endpoint = "https://api-v3search-0.nuget.org/autocomplete?q=";// jquery
+            // The API index: https://api.nuget.org/v3/index.json
+            string endpoint = "https://api-v3search-0.nuget.org/autocomplete?q=";
             string url = endpoint + Uri.EscapeUriString(term);
 
             using (var client = new WebClient())
@@ -62,12 +63,13 @@ namespace PackageInstaller
 
         public override async Task<bool> InstallPackage(Project project, string packageName, string version)
         {
+            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+            var installer = componentModel.GetService<IVsPackageInstaller>();
+
             return await System.Threading.Tasks.Task.Run(() =>
             {
                 try
                 {
-                    var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-                    var installer = componentModel.GetService<IVsPackageInstaller>();
                     installer.InstallPackage(null, project, packageName, (Version)null, false);
                     VSPackage.UpdateStatus("Package installed");
                     return true;

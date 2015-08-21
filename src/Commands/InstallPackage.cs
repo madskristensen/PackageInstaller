@@ -59,9 +59,11 @@ namespace PackageInstaller
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
                 return;
 
+            VSPackage.AnimateStatusBar(true);
             VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
             await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
+            VSPackage.AnimateStatusBar(false);
         }
     }
 }

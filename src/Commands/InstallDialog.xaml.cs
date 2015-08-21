@@ -79,6 +79,8 @@ namespace PackageInstaller
 
             Title = $"Install {provider.Name} package";
 
+            cbName.ItemsSource = null;
+
             GetPackages();
         }
 
@@ -105,7 +107,19 @@ namespace PackageInstaller
 
         private async void GetPackages()
         {
-            cbName.ItemsSource = await Provider.GetPackages(cbName.Text);
+            IEnumerable<string> source;
+
+            if (cbName.ItemsSource != null)
+            {
+                var current = (IEnumerable<string>)cbName.ItemsSource;
+                source = current.Union(await Provider.GetPackages(cbName.Text)).OrderBy(s => s);
+            }
+            else
+            {
+                source = await Provider.GetPackages(cbName.Text);
+            }
+
+            cbName.ItemsSource = source;
         }
 
         private void btnInstall_Click(object sender, RoutedEventArgs e)
