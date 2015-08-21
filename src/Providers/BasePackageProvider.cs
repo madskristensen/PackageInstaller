@@ -15,59 +15,61 @@ namespace PackageInstaller
 
         public abstract ImageSource Icon { get; }
 
-        public abstract Task<IEnumerable<string>> GetPackages();
+        public abstract Task<IEnumerable<string>> GetPackages(string term = null);
 
-        public abstract void InstallPackage(Project project, string packageName, string version);
+        public abstract Task<bool> InstallPackage(Project project, string packageName, string version);
 
         public abstract Task<IEnumerable<string>> GetVersion(string packageName);
 
-        protected virtual void CallCommand(string argument, string cwd)
+        public virtual bool EnableDynamicSearch { get { return false; } }
+
+        protected virtual async Task<bool> CallCommand(string argument, string cwd)
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(async (o) =>
+            ProcessStartInfo start = new ProcessStartInfo
             {
-                ProcessStartInfo start = new ProcessStartInfo
-                {
-                    WorkingDirectory = cwd,
-                    UseShellExecute = false,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    CreateNoWindow = true,
-                    FileName = "cmd.exe",
-                    Arguments = argument,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                    StandardErrorEncoding = Encoding.UTF8,
-                    StandardOutputEncoding = Encoding.UTF8,
-                };
+                WorkingDirectory = cwd,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
+                FileName = "cmd.exe",
+                Arguments = argument,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                StandardErrorEncoding = Encoding.UTF8,
+                StandardOutputEncoding = Encoding.UTF8,
+            };
 
-                ModifyPathVariable(start);
+            ModifyPathVariable(start);
 
-                try
+            try
+            {
+                using (var p = System.Diagnostics.Process.Start(start))
                 {
-                    using (var p = System.Diagnostics.Process.Start(start))
+                    var error = await p.StandardError.ReadToEndAsync();
+                    var output = await p.StandardOutput.ReadToEndAsync();
+                    p.WaitForExit();
+
+                    Logger.Log(output, true);
+
+                    if (p.ExitCode == 0)
                     {
-                        var error = await p.StandardError.ReadToEndAsync();
-                        var output = await p.StandardOutput.ReadToEndAsync();
-                        p.WaitForExit();
-
-                        Logger.Log(output, true);
-
-                        if (p.ExitCode == 0)
-                        {
-                            VSPackage.UpdateStatus("Package installed");
-                        }
-                        else
-                        {
-                            VSPackage.UpdateStatus("An error installing package. See output window for details");
-                            Logger.Log(error, true);
-                        }
+                        VSPackage.UpdateStatus("Package installed");
+                    }
+                    else
+                    {
+                        VSPackage.UpdateStatus("An error installing package. See output window for details");
+                        Logger.Log(error, true);
                     }
                 }
-                catch (Exception ex)
-                {
-                    VSPackage.UpdateStatus("An error installing package. See output window for details");
-                    Logger.Log(ex, true);
-                }
-            });
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                VSPackage.UpdateStatus("An error installing package. See output window for details");
+                Logger.Log(ex, true);
+                return false;
+            }
         }
 
         protected static void ModifyPathVariable(ProcessStartInfo start)

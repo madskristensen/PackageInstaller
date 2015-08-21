@@ -20,13 +20,13 @@ namespace PackageInstaller
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
-                menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
+                var menuItem = new OleMenuCommand(ShowInstallDialog, menuCommandID);
+                menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        private void BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (OleMenuCommand)sender;
             _project = ProjectHelpers.GetSelectedProject();
@@ -46,14 +46,14 @@ namespace PackageInstaller
             Instance = new InstallPackage(package);
         }
 
-        private void MenuItemCallback(object sender, EventArgs e)
+        private async void ShowInstallDialog(object sender, EventArgs e)
         {
             Project project = _project ?? ProjectHelpers.GetSelectedProject();
 
             if (project == null)
                 return;
 
-            InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Npm(), new Jspm());
+            InstallDialog dialog = new InstallDialog(ServiceProvider, new NuGet(), new Bower(), new Npm(), new Jspm());
             var result = dialog.ShowDialog();
 
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
@@ -61,7 +61,7 @@ namespace PackageInstaller
 
             VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
-            dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
+            await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
         }
     }
 }

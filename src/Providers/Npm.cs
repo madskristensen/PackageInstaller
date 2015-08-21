@@ -26,7 +26,7 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages()
+        public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
             return await Task.FromResult(Enumerable.Empty<string>());
         }
@@ -58,7 +58,7 @@ namespace PackageInstaller
                    select version.Name;
         }
 
-        public override void InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
         {
             if (!string.IsNullOrEmpty(version))
                 packageName += $"@{version}";
@@ -75,7 +75,7 @@ namespace PackageInstaller
             }
 
             AddAdditionalFiles(project, cwd, packageName);
-            CallCommand(arg, cwd);
+            return await CallCommand(arg, cwd);
         }
 
         private static void AddAdditionalFiles(Project project, string cwd, string packageName)

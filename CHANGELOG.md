@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] NuGet integration
+- [x] NuGet integration
 - [ ] npm package name Intellisense (blocked by npm)
 - [x] Added `node_modules/.bin` to the path
 

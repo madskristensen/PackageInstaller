@@ -105,7 +105,7 @@ namespace PackageInstaller
 
         private async void GetPackages()
         {
-            cbName.ItemsSource = await Provider.GetPackages();
+            cbName.ItemsSource = await Provider.GetPackages(cbName.Text);
         }
 
         private void btnInstall_Click(object sender, RoutedEventArgs e)
@@ -123,6 +123,9 @@ namespace PackageInstaller
 
             if (!cbVersion.IsEnabled)
                 cbVersion.Text = LATEST;
+
+            if (Provider.EnableDynamicSearch)
+                GetPackages();
         }
 
         private string GetLastUsed()

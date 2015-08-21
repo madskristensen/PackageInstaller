@@ -28,7 +28,7 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages()
+        public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "jspm-registry.txt");
             string url = "https://raw.githubusercontent.com/jspm/registry/master/registry.json";
@@ -41,7 +41,7 @@ namespace PackageInstaller
             return await Task.FromResult(Enumerable.Empty<string>());
         }
 
-        public override void InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
         {
             if (!string.IsNullOrEmpty(version))
                 packageName += $"@{version}";
@@ -58,9 +58,13 @@ namespace PackageInstaller
             }
 
             if (IsJspmConfigured(json))
-                CallCommand(arg, cwd);
+            {
+                return await CallCommand(arg, cwd);
+            }
             else
-                ShowConsole(arg, cwd);
+            {
+                return await ShowConsole(arg, cwd);
+            }
         }
 
         private bool IsJspmConfigured(string packageJsonFile)
@@ -79,7 +83,7 @@ namespace PackageInstaller
             return false;
         }
 
-        protected async void ShowConsole(string argument, string cwd)
+        protected async Task<bool> ShowConsole(string argument, string cwd)
         {
             ProcessStartInfo start = new ProcessStartInfo
             {
@@ -103,17 +107,20 @@ namespace PackageInstaller
                 if (string.IsNullOrEmpty(error))
                 {
                     VSPackage._dte.StatusBar.Text = "Package installed";
+                    return true;
                 }
                 else
                 {
                     VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
                     Logger.Log(error, true);
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
                 Logger.Log(ex, true);
+                return false;
             }
         }
 

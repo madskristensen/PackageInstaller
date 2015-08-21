@@ -29,7 +29,7 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages()
+        public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "bower-registry.txt");
             string url = "https://bower-component-list.herokuapp.com/";
@@ -75,7 +75,7 @@ namespace PackageInstaller
             return list;
         }
 
-        public override void InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
         {
             if (!string.IsNullOrEmpty(version))
                 packageName += $"#{version}";
@@ -91,7 +91,7 @@ namespace PackageInstaller
                 project.ProjectItems.AddFromFile(json);
             }
 
-            CallCommand(arg, cwd);
+            return await CallCommand(arg, cwd);
         }
 
         private static async Task<IEnumerable<string>> UpdateFileCache(string file, string url)
