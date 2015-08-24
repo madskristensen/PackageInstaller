@@ -1,7 +1,7 @@
 ## Package Installer
 
 A Visual Studio extension that makes it easy and fast to install
-Bower and npm packages.
+Bower, npm, JSPM and NuGet packages.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/bd4o6iumw9vwf8kh?svg=true)](https://ci.appveyor.com/project/madskristensen/packageinstaller)
 
@@ -16,7 +16,7 @@ for changes and roadmap.
 
 ### Features
 
-- Supports Bower, npm and JSPM
+- Supports Bower, npm, JSPM and NuGet
 - Intellisense for package names and versions
 - Automatically creates package.json or bower.json if missing
 - Automatically creates gulp-/grunt-/brocfile.js if they are being installed using npm
