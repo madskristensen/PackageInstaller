@@ -1,8 +1,6 @@
 # Roadmap
 
-- [x] NuGet integration
 - [ ] npm package name Intellisense (blocked by npm)
-- [x] Added `node_modules/.bin` to the path
 
 Features that have a checkmark are complete and available for
 download in the
@@ -12,6 +10,13 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.2
+
+**2015-08-24**
+
+- [x] NuGet integration
+- [x] Added `node_modules/.bin` to the path
 
 ## 1.1
 
