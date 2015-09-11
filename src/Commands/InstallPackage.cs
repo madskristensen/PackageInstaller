@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Windows.Interop;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
@@ -54,6 +55,12 @@ namespace PackageInstaller
                 return;
 
             InstallDialog dialog = new InstallDialog(ServiceProvider, new NuGet(), new Bower(), new Npm(), new Jspm());
+
+            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
+            var hwnd = new IntPtr(dte.MainWindow.HWnd);
+            System.Windows.Window window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;
+            dialog.Owner = window;
+
             var result = dialog.ShowDialog();
 
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)

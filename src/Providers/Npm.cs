@@ -26,9 +26,31 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
+        public override bool EnableDynamicSearch
+        {
+            get { return true; }
+        }
+
         public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
-            return await Task.FromResult(Enumerable.Empty<string>());
+            if (string.IsNullOrEmpty(term))
+                return Enumerable.Empty<string>();
+
+            string url = $"https://ac.cnstrc.com/autocomplete/{Uri.EscapeUriString(term)}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK";
+
+            using (var client = new WebClient())
+            {
+                string json = await client.DownloadStringTaskAsync(url);
+                return ToList(json);
+            }
+        }
+
+        private static IEnumerable<string> ToList(string json)
+        {
+            var root = JObject.Parse(json);
+            var array = (JArray)root["sections"]["packages"];
+
+            return array.Select(a => a["value"].ToString());
         }
 
         public async override Task<IEnumerable<string>> GetVersion(string packageName)

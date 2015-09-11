@@ -1,6 +1,7 @@
 # Roadmap
 
-- [ ] npm package name Intellisense (blocked by npm)
+- [x] npm package name Intellisense
+- [x] Keep dialog on top of Visual Studio
 - [ ] Bower: Convert to new Azure based registry
 
 Features that have a checkmark are complete and available for
