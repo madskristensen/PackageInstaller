@@ -1,6 +1,7 @@
 # Roadmap
 
 - [ ] Bower: Convert to new Azure based registry
+- [ ] Move command next to "Manage Nuget Packages..."
 
 Features that have a checkmark are complete and available for
 download in the
