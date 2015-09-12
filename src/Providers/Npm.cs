@@ -47,10 +47,18 @@ namespace PackageInstaller
 
         private static IEnumerable<string> ToList(string json)
         {
-            var root = JObject.Parse(json);
-            var array = (JArray)root["sections"]["packages"];
+            try
+            {
+                var root = JObject.Parse(json);
+                var array = (JArray)root["sections"]["packages"];
 
-            return array.Select(a => a["value"].ToString());
+                return array.Select(a => a["value"].ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return Enumerable.Empty<string>();
+            }
         }
 
         public async override Task<IEnumerable<string>> GetVersion(string packageName)
