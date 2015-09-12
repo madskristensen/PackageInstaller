@@ -17,6 +17,7 @@ for changes and roadmap.
 ### Features
 
 - Supports Bower, npm, JSPM and NuGet
+- Works for all project types including ASP.NET 5, WebForms, Website projects and more
 - Intellisense for package names and versions
 - Automatically creates package.json or bower.json if missing
 - Automatically creates gulp-/grunt-/brocfile.js if they are being installed using npm
@@ -50,7 +51,7 @@ Also for version numbers for both Bower and npm:
 
 ### bower.json / package.json
 
-You can install packages without having set up Bower or npm.
+You can install packages without having set up Bower, JSPM or npm.
 
 This extension will automatically create the JSON configuration
 files, so you don't have to worry about it.
