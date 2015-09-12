@@ -6,17 +6,12 @@
     <Include href="KnownImageIds.vsct"/>
 
     <Commands package="guidVSPackage">
-        <Groups>
-            <Group guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
-            </Group>
-        </Groups>
-
         <Buttons>
-            <Button guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0100" type="Button">
-                <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+            <Button guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0500" type="Button">
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_PROJECT_ADD" />
                 <Icon guid="ImageCatalogGuid" id="NewPackage" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
                 <Strings>
                     <ButtonText>Quick Install Package...</ButtonText>
                 </Strings>
@@ -25,8 +20,14 @@
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x0200">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CSCD_PROJECT_WEB"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0500">
+            <Parent guid="guidVenusCmdId" id="IDG_CTX_REFERENCE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidVSPackageCmdSet" id="InstallPackageId" priority="0x0500">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_PROJ_OPTIONS"/>
         </CommandPlacement>
     </CommandPlacements>
 
@@ -34,13 +35,22 @@
         <KeyBinding guid="guidVSPackageCmdSet" id="InstallPackageId" mod1="Shift Alt" key1="0" editor="guidVSStd97"/>
     </KeyBindings>
 
+    <VisibilityConstraints>
+        <VisibilityItem guid="guidVSPackageCmdSet" id="InstallPackageId" context="UICONTEXT_SolutionExistsAndNotBuildingAndNotDebugging" />
+    </VisibilityConstraints>
+
     <Symbols>
         <!-- This is the package guid. -->
         <GuidSymbol name="guidVSPackage" value="{f91d6656-dccf-400f-843d-1ff49242cf4b}" />
 
         <GuidSymbol name="guidVSPackageCmdSet" value="{c0f38f12-aa45-4a08-9305-30003a67fecc}">
-            <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="InstallPackageId" value="0x0100" />
+        </GuidSymbol>
+
+        <!-- Got this from https://github.com/NuGet/NuGet.VisualStudioExtension/blob/dev/src/VsExtension/NuGetTools.vsct -->
+        <GuidSymbol name="guidVenusCmdId" value="{C7547851-4E3A-4E5B-9173-FA6E9C8BD82C}" >
+            <IDSymbol name="IDG_VENUS_CTX_REFERENCE" value="27" />
+            <IDSymbol name="IDG_CTX_REFERENCE" value="0x102" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

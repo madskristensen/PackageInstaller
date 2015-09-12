@@ -8,8 +8,6 @@ namespace PackageInstaller
 {
     internal sealed class InstallPackage
     {
-        public const int CommandId = PackageCommands.InstallPackageId;
-        public static readonly Guid CommandSet = GuidList.guidVSPackageCmdSet;
         private readonly Package package;
         private Project _project;
 
@@ -20,7 +18,7 @@ namespace PackageInstaller
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(CommandSet, CommandId);
+                var menuCommandID = new CommandID(PackageGuids.guidVSPackageCmdSet, PackageIds.InstallPackageId);
                 var menuItem = new OleMenuCommand(ShowInstallDialog, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
