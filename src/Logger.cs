@@ -55,8 +55,7 @@ namespace PackageInstaller
         {
             TelemetryClient client = GetAppInsightsClient();
 
-            var evt = new EventTelemetry("Package Install");
-            evt.Properties.Add("Provider", providerName);
+            var evt = new EventTelemetry(providerName);
             evt.Properties.Add("Package", packageName);
 
             client.TrackEvent(evt);
