@@ -55,7 +55,7 @@ to work.
 
 Open a console and type the following command:
 
-```
+```cmd
 npm install tsd -g
 ```
 
