@@ -3,7 +3,8 @@
 - [ ] Bower: Convert to new Azure based registry
 - [x] Use shortcuts to change package provider
 - [x] Added tips to bottom of dialog
-- [ ] Added logo icons in provider dropdown
+- [x] Added logo icons in provider dropdown
+- [x] New icon for JSPM
 
 Features that have a checkmark are complete and available for
 download in the

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
 
@@ -33,6 +34,7 @@ namespace PackageInstaller
             {
                 _settings = new ShellSettingsManager(serviceProvider);
 
+                Icon = BitmapFrame.Create(new Uri("pack://application:,,,/PackageInstaller;component/Resources/dialog-icon.png", UriKind.RelativeOrAbsolute));
                 Closing += StoreLastUsed;
                 cbName.Focus();
 
@@ -40,7 +42,6 @@ namespace PackageInstaller
                 cbVersion.GotFocus += VersionFocus;
 
                 cbType.ItemsSource = _providers;
-                cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
                 cbType.SelectionChanged += TypeChanged;
                 SetRandomTip();
 

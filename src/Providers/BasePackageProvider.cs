@@ -87,5 +87,10 @@ namespace PackageInstaller
 
             start.EnvironmentVariables["PATH"] = path;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

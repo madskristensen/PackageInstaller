@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PackageInstaller.InstallDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" Icon="{Binding ElementName=cbType, Path=SelectedItem.Icon}">
+        Title="Install package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -13,7 +13,16 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <ComboBox x:Name="cbType" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="75" />
+        <ComboBox x:Name="cbType" Grid.Row="0" Grid.Column="0" Margin="10,0" VerticalAlignment="Center" Width="90">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Icon}" Width="16" Height="16" />
+                        <TextBlock Text="{Binding Name}" Margin="10,0,0,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <ComboBox x:Name="cbName" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch" IsEditable="True" TextBoxBase.TextChanged="cbName_TextChanged">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>

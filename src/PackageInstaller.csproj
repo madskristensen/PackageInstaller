@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\bower.png" />
+    <Resource Include="Resources\dialog-icon.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
