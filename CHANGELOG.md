@@ -1,6 +1,9 @@
 # Roadmap
 
 - [ ] Bower: Convert to new Azure based registry
+- [x] Use shortcuts to change package provider
+- [x] Added tips to bottom of dialog
+- [ ] Added logo icons in provider dropdown
 
 Features that have a checkmark are complete and available for
 download in the

@@ -15,6 +15,13 @@ namespace PackageInstaller
         private string _lastSearch;
         private const string LATEST = "Latest version";
         private const string LOADING = "Loading...";
+        private static string[] _tips = new[] {
+            "Tip: Type 'b:' to select Bower from dropdown",
+            "Tip: Type 'j:' to select JSPM from dropdown",
+            "Tip: Type 'n:' to select NuGet from dropdown",
+            "Tip: Type 'np:' to select npm from dropdown",
+            "Tip: Type 't:' to select TSD from dropdown",
+        };
 
         public InstallDialog(IServiceProvider serviceProvider, params IPackageProvider[] providers)
         {
@@ -35,6 +42,7 @@ namespace PackageInstaller
                 cbType.ItemsSource = _providers;
                 cbType.DisplayMemberPath = nameof(IPackageProvider.Name);
                 cbType.SelectionChanged += TypeChanged;
+                SetRandomTip();
 
                 string lastUsed = GetLastUsed();
 
@@ -49,6 +57,12 @@ namespace PackageInstaller
                         cbType.SelectedItem = provider;
                 }
             };
+        }
+
+        private void SetRandomTip()
+        {
+            Random rdn = new Random(DateTime.Now.GetHashCode());
+            lblTip.Content = _tips[rdn.Next(_tips.Length)];
         }
 
         private async void VersionFocus(object sender, EventArgs e)
@@ -81,6 +95,7 @@ namespace PackageInstaller
 
             cbName.ItemsSource = null;
 
+            SetRandomTip();
             GetPackages();
         }
 
@@ -131,6 +146,22 @@ namespace PackageInstaller
         private void cbName_TextChanged(object sender, RoutedEventArgs e)
         {
             cbVersion.IsEnabled = !string.IsNullOrWhiteSpace(cbName.Text);
+
+            if (cbName.Text.EndsWith(":", StringComparison.Ordinal))
+            {
+                string providerMatch = cbName.Text.TrimEnd(':');
+
+                foreach (var provider in _providers)
+                {
+                    if (!provider.Name.StartsWith(providerMatch, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    cbName.Text = string.Empty;
+                    cbType.SelectedItem = provider;
+                    SetRandomTip();
+                    return;
+                }
+            }
 
             cbVersion.ItemsSource = new[] { LATEST };
             cbVersion.SelectedIndex = 0;

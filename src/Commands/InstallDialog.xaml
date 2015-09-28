@@ -29,12 +29,13 @@
             </ComboBox.ItemsPanel>
         </ComboBox>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0 10">
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
+            <Label x:Name="lblTip" Content="Tip" HorizontalAlignment="Left" Foreground="Gray" Margin="10 0 0 0" />
             <Button x:Name="btnInstall" Grid.Column="1" Content="Install" HorizontalAlignment="Right" Margin="10 0" VerticalAlignment="Bottom" Width="75" IsDefault="True" Click="btnInstall_Click" />
             <Button x:Name="btnCancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
         </Grid>
