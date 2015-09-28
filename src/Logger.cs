@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace PackageInstaller
@@ -42,7 +44,31 @@ namespace PackageInstaller
             if (ex != null)
             {
                 Log(ex.ToString(), showOutputWindow);
+
+                TelemetryClient client = GetAppInsightsClient();
+                client.TrackException(new ExceptionTelemetry(ex));
+                client.Flush();
             }
+        }
+
+        public static void PackageInstall(string providerName, string packageName)
+        {
+            TelemetryClient client = GetAppInsightsClient();
+
+            var evt = new EventTelemetry("Package Install");
+            evt.Properties.Add("Provider", providerName);
+            evt.Properties.Add("Package", packageName);
+
+            client.TrackEvent(evt);
+            client.Flush();
+        }
+
+        private static TelemetryClient GetAppInsightsClient()
+        {
+            TelemetryClient client = new TelemetryClient();
+            client.InstrumentationKey = Constants.TELEMETRY_KEY;
+
+            return client;
         }
 
         private static bool EnsurePane()

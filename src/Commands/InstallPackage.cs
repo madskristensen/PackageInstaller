@@ -68,6 +68,9 @@ namespace PackageInstaller
             VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
             await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
+
+            Logger.PackageInstall(dialog.Provider.Name, dialog.Package);
+
             VSPackage.AnimateStatusBar(false);
         }
     }
