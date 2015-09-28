@@ -1,8 +1,6 @@
 # Roadmap
 
 - [ ] Bower: Convert to new Azure based registry
-- [x] Move command next to "Manage Nuget Packages..."
-- [x] Added support for DefinatelyTyped package manager (TSD)
 
 Features that have a checkmark are complete and available for
 download in the
@@ -12,6 +10,13 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.4
+
+**2015-09-28**
+
+- [x] Move command next to "Manage Nuget Packages..."
+- [x] Added support for DefinatelyTyped package manager (TSD)
 
 ## 1.3
 
