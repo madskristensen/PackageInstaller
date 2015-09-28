@@ -5,6 +5,7 @@
 - [x] Added tips to bottom of dialog
 - [x] Added logo icons in provider dropdown
 - [x] New icon for JSPM
+- [x] Use project path on current document
 
 Features that have a checkmark are complete and available for
 download in the

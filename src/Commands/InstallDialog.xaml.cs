@@ -92,8 +92,6 @@ namespace PackageInstaller
             ComboBox box = (ComboBox)sender;
             IPackageProvider provider = (IPackageProvider)box.SelectedItem;
 
-            Title = $"Install {provider.Name} package";
-
             cbName.ItemsSource = null;
 
             SetRandomTip();

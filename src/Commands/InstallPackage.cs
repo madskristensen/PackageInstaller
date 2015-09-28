@@ -27,8 +27,9 @@ namespace PackageInstaller
 
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
+            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
             var button = (OleMenuCommand)sender;
-            _project = ProjectHelpers.GetSelectedProject();
+            _project = ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
 
             button.Enabled = button.Visible = _project != null;
         }
@@ -47,14 +48,14 @@ namespace PackageInstaller
 
         private async void ShowInstallDialog(object sender, EventArgs e)
         {
-            Project project = _project ?? ProjectHelpers.GetSelectedProject();
+            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
+            Project project = _project ?? ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
 
             if (project == null)
                 return;
 
             InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd());
 
-            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
             var hwnd = new IntPtr(dte.MainWindow.HWnd);
             System.Windows.Window window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;
             dialog.Owner = window;
@@ -72,6 +73,21 @@ namespace PackageInstaller
             Logger.PackageInstall(dialog.Provider.Name, dialog.Package);
 
             VSPackage.AnimateStatusBar(false);
+        }
+
+        private static Project GetActiveDocumentProject(DTE dte)
+        {
+            if (dte.ActiveWindow == null || dte.ActiveWindow.Type != vsWindowType.vsWindowTypeDocument)
+                return null;
+
+            var doc = dte.ActiveDocument;
+
+            if (doc == null || string.IsNullOrEmpty(doc.FullName))
+                return null;
+
+            ProjectItem item = dte.Solution.FindProjectItem(doc.FullName);
+
+            return item?.ContainingProject;
         }
     }
 }
