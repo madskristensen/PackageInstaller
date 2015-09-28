@@ -62,6 +62,7 @@
       <DependentUpon>InstallDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\BasePackageProvider.cs" />
+    <Compile Include="Providers\Tsd.cs" />
     <Compile Include="Providers\NuGet.cs" />
     <Compile Include="Providers\Jspm.cs" />
     <Compile Include="Providers\Npm.cs" />
@@ -215,6 +216,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\tsd.png" />
     <Content Include="Resources\VSPackage.ico" />
     <VSCTCompile Include="VSCommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>

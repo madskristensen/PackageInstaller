@@ -3,11 +3,11 @@
     <Metadata>
         <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="1.3" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Package Installer</DisplayName>
-        <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM and NuGet packages to any project</Description>
+        <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM, TSD and NuGet packages to any project</Description>
         <License>Resources\LICENSE</License>
         <Icon>Resources\icon.png</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>npm, bower, jspm</Tags>
+        <Tags>npm, bower, jspm, nuget, tsd, DefinitelyTyped</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />

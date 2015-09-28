@@ -52,7 +52,7 @@ namespace PackageInstaller
             if (project == null)
                 return;
 
-            InstallDialog dialog = new InstallDialog(ServiceProvider, new NuGet(), new Bower(), new Npm(), new Jspm());
+            InstallDialog dialog = new InstallDialog(ServiceProvider, new NuGet(), new Bower(), new Npm(), new Jspm(), new Tsd());
 
             var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
             var hwnd = new IntPtr(dte.MainWindow.HWnd);

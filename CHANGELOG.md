@@ -2,6 +2,7 @@
 
 - [ ] Bower: Convert to new Azure based registry
 - [x] Move command next to "Manage Nuget Packages..."
+- [x] Added support for DefinatelyTyped package manager (TSD)
 
 Features that have a checkmark are complete and available for
 download in the
