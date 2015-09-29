@@ -1,4 +1,5 @@
 ﻿using System;
+using EnvDTE;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -11,11 +12,20 @@ namespace PackageInstaller
         private static object _syncRoot = new object();
         private static IServiceProvider _provider;
         private static string _name;
+        private static TelemetryClient _telemetry = GetAppInsightsClient();
+        private static DTEEvents _events;
 
         public static void Initialize(IServiceProvider provider, string name)
         {
             _provider = provider;
             _name = name;
+
+            var dte = (DTE)_provider.GetService(typeof(DTE));
+            _events = dte.Events.DTEEvents;
+            _events.OnBeginShutdown += delegate
+            {
+                _telemetry.Flush();
+            };
         }
 
         public static void Log(string message, bool showOutputWindow = false)
@@ -45,27 +55,24 @@ namespace PackageInstaller
             {
                 Log(ex.ToString(), showOutputWindow);
 
-                TelemetryClient client = GetAppInsightsClient();
-                client.TrackException(new ExceptionTelemetry(ex));
-                client.Flush();
+                _telemetry.TrackException(new ExceptionTelemetry(ex));
             }
         }
 
         public static void PackageInstall(string providerName, string packageName)
         {
-            TelemetryClient client = GetAppInsightsClient();
-
             var evt = new EventTelemetry(providerName);
             evt.Properties.Add("Package", packageName);
 
-            client.TrackEvent(evt);
-            client.Flush();
+            _telemetry.TrackEvent(evt);
         }
 
         private static TelemetryClient GetAppInsightsClient()
         {
             TelemetryClient client = new TelemetryClient();
             client.InstrumentationKey = Constants.TELEMETRY_KEY;
+            client.Context.Component.Version = VSPackage.Version;
+            client.Context.Session.Id = Guid.NewGuid().ToString();
 
             return client;
         }
