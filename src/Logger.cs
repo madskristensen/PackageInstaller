@@ -1,7 +1,6 @@
 ﻿using System;
 using EnvDTE;
 using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace PackageInstaller
@@ -54,17 +53,20 @@ namespace PackageInstaller
             if (ex != null)
             {
                 Log(ex.ToString(), showOutputWindow);
-
-                _telemetry.TrackException(new ExceptionTelemetry(ex));
+#if !DEBUG
+                _telemetry.TrackException(new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex));
+#endif
             }
         }
 
         public static void PackageInstall(string providerName, string packageName)
         {
-            var evt = new EventTelemetry(providerName);
+#if !DEBUG
+            var evt = new Microsoft.ApplicationInsights.DataContracts.EventTelemetry(providerName);
             evt.Properties.Add("Package", packageName);
 
             _telemetry.TrackEvent(evt);
+#endif
         }
 
         private static TelemetryClient GetAppInsightsClient()
