@@ -1,11 +1,6 @@
 # Roadmap
 
 - [ ] Bower: Convert to new Azure based registry
-- [x] Use shortcuts to change package provider
-- [x] Added tips to bottom of dialog
-- [x] Added logo icons in provider dropdown
-- [x] New icon for JSPM
-- [x] Use project path on current document
 
 Features that have a checkmark are complete and available for
 download in the
@@ -22,6 +17,11 @@ on the official Visual Studio extension gallery.
 
 - [x] Move command next to "Manage Nuget Packages..."
 - [x] Added support for DefinatelyTyped package manager (TSD)
+- [x] Use shortcuts to change package provider
+- [x] Added tips to bottom of dialog
+- [x] Added logo icons in provider dropdown
+- [x] New icon for JSPM
+- [x] Use project path on current document
 
 ## 1.3
 
