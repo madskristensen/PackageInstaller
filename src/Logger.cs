@@ -73,6 +73,7 @@ namespace PackageInstaller
             client.InstrumentationKey = Constants.TELEMETRY_KEY;
             client.Context.Component.Version = VSPackage.Version;
             client.Context.Session.Id = Guid.NewGuid().ToString();
+            client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
 
             return client;
         }
