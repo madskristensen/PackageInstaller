@@ -1,6 +1,7 @@
 # Roadmap
 
 - [ ] Bower: Convert to new Azure based registry
+- [ ] Implement better auto-completion mechanism
 
 Features that have a checkmark are complete and available for
 download in the
@@ -15,7 +16,7 @@ on the official Visual Studio extension gallery.
 
 **2015-09-28**
 
-- [x] Move command next to "Manage Nuget Packages..."
+- [x] Move command next to "Manage NuGet Packages..."
 - [x] Added support for DefinatelyTyped package manager (TSD)
 - [x] Use shortcuts to change package provider
 - [x] Added tips to bottom of dialog

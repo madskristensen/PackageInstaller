@@ -19,8 +19,8 @@ namespace PackageInstaller
         private static string[] _tips = new[] {
             "Tip: Type 'b:' to select Bower from dropdown",
             "Tip: Type 'j:' to select JSPM from dropdown",
-            "Tip: Type 'n:' to select NuGet from dropdown",
-            "Tip: Type 'np:' to select npm from dropdown",
+            "Tip: Type 'nu:' to select NuGet from dropdown",
+            "Tip: Type 'n:' to select npm from dropdown",
             "Tip: Type 't:' to select TSD from dropdown",
         };
 
