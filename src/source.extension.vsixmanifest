@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="1.4" Language="en-US" Publisher="Mads Kristensen" />
+        <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="1.5" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Package Installer</DisplayName>
         <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM, TSD and NuGet packages to any project</Description>
         <License>Resources\LICENSE</License>

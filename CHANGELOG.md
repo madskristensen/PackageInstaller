@@ -2,7 +2,6 @@
 
 - [ ] Bower: Convert to new Azure based registry
 - [ ] Implement better auto-completion mechanism
-- [x] Setting to customize arguments for each package manager
 
 Features that have a checkmark are complete and available for
 download in the
@@ -12,6 +11,12 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.5
+
+**2015-10-08**
+
+- [x] Setting to customize arguments for each package manager
 
 ## 1.4
 
