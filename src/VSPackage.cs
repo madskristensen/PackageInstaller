@@ -9,6 +9,7 @@ namespace PackageInstaller
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
+    [ProvideOptionPage(typeof(Settings), "Web", Constants.VSIX_NAME, 101, 111, true, new[] { "npm", "tsd", "jspm", "bower", "nuget" }, ProvidesLocalizedCategoryName = false)]
     [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VSPackage : Package
@@ -17,12 +18,14 @@ namespace PackageInstaller
         public const string Name = Constants.VSIX_NAME;
         public static DTE2 _dte;
         private static Dispatcher _dispatcher;
+        internal static Settings Settings;
 
         protected override void Initialize()
         {
             base.Initialize();
             _dte = GetService(typeof(DTE)) as DTE2;
             _dispatcher = Dispatcher.CurrentDispatcher;
+            Settings = (Settings)GetDialogPage(typeof(Settings));
 
             Logger.Initialize(this, "Package Installer");
             InstallPackage.Initialize(this);

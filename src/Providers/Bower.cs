@@ -80,7 +80,7 @@ namespace PackageInstaller
             if (!string.IsNullOrEmpty(version))
                 packageName += $"#{version}";
 
-            string arg = $"/c bower install {packageName} --save --no-color";
+            string arg = $"/c bower install {packageName} --no-color {VSPackage.Settings.BowerArugments}";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "bower.json");
 

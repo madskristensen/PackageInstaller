@@ -44,7 +44,7 @@ namespace PackageInstaller
             if (!string.IsNullOrEmpty(version))
                 packageName += $"@{version}";
 
-            string arg = $"/c tsd install {packageName} -s";
+            string arg = $"/c tsd install {packageName} {VSPackage.Settings.TsdArugments}";
             string cwd = project.GetRootFolder();
 
             return await CallCommand(arg, cwd);

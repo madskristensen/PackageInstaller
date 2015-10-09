@@ -46,7 +46,7 @@ namespace PackageInstaller
             if (!string.IsNullOrEmpty(version))
                 packageName += $"@{version}";
 
-            string arg = $"/c jspm install {packageName}";
+            string arg = $"/c jspm install {packageName} {VSPackage.Settings.JspmArugments}";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "package.json");
 

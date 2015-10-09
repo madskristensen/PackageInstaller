@@ -22,6 +22,7 @@ for changes and roadmap.
 - Automatically creates package.json or bower.json if missing
 - Automatically creates gulp-/grunt-/brocfile.js if they are being installed using npm
 - Selects the last used package manager
+- Customize arguments passed to each package manager
 
 ### Install a package
 
@@ -68,6 +69,14 @@ You can install packages without having set up Bower, JSPM or npm.
 
 This extension will automatically create the JSON configuration
 files, so you don't have to worry about it.
+
+### Customize arguments
+Specifying what parameters to use for each of the package managers
+can be done in the options page;
+
+![Options](art/options.png)
+
+This give you complete control over how each package is installed.
 
 ### Keyboard shortcut
 

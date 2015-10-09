@@ -69,6 +69,9 @@
     <Compile Include="Providers\Npm.cs" />
     <Compile Include="Providers\Bower.cs" />
     <Compile Include="Providers\IPackageProvider.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="VSPackage.cs" />
     <Compile Include="VSCommandTable.cs">
       <AutoGen>True</AutoGen>

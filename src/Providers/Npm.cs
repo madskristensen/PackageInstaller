@@ -93,7 +93,7 @@ namespace PackageInstaller
             if (!string.IsNullOrEmpty(version))
                 packageName += $"@{version}";
 
-            string arg = $"/c npm install {packageName} --save";
+            string arg = $"/c npm install {packageName} {VSPackage.Settings.NpmArugments}";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "package.json");
 
