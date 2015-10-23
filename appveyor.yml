@@ -21,7 +21,6 @@ before_deploy:
 deploy:
   - provider: Environment
     name: Chocolatey
-    artifact: /.*\.nupkg/
     on:
       branch: master
       appveyor_repo_commit_message_extended: /\[release\]/
