@@ -49,6 +49,7 @@ namespace PackageInstaller
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 ErrorDialog = false,
+                RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 StandardOutputEncoding = Encoding.UTF8,
             };
