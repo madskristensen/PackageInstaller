@@ -8,14 +8,12 @@ using Microsoft.VisualStudio.Shell;
 namespace PackageInstaller
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
-    [ProvideOptionPage(typeof(Settings), "Web", Constants.VSIX_NAME, 101, 111, true, new[] { "npm", "tsd", "jspm", "bower", "nuget" }, ProvidesLocalizedCategoryName = false)]
+    [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
+    [ProvideOptionPage(typeof(Settings), "Web", Vsix.Name, 101, 111, true, new[] { "npm", "tsd", "jspm", "bower", "nuget" }, ProvidesLocalizedCategoryName = false)]
     [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VSPackage : Package
     {
-        public const string Version = "1.0.0";
-        public const string Name = Constants.VSIX_NAME;
         public static DTE2 _dte;
         private static Dispatcher _dispatcher;
         internal static Settings Settings;

@@ -72,8 +72,8 @@ namespace PackageInstaller
         private static TelemetryClient GetAppInsightsClient()
         {
             TelemetryClient client = new TelemetryClient();
-            client.InstrumentationKey = Constants.TELEMETRY_KEY;
-            client.Context.Component.Version = VSPackage.Version;
+            client.InstrumentationKey = "56089e10-7937-4edd-b3e9-585cac8a8a88";
+            client.Context.Component.Version = Vsix.Version;
             client.Context.Session.Id = Guid.NewGuid().ToString();
             client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
 
