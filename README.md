@@ -1,4 +1,4 @@
-## Package Installer
+# Package Installer
 
 A Visual Studio extension that makes it easy and fast to install
 Bower, npm, JSPM, TSD and NuGet packages.
@@ -14,7 +14,7 @@ See the
 [changelog](CHANGELOG.md)
 for changes and roadmap.
 
-### Features
+## Features
 
 - Supports Bower, npm, JSPM, TSD (DefinatelyTyped) and NuGet
 - Works for all project types including ASP.NET 5, WebForms, Website projects and more
@@ -24,14 +24,14 @@ for changes and roadmap.
 - Selects the last used package manager
 - Customize arguments passed to each package manager
 
-### Install a package
+## Install a package
 
 Simply right-click the project and select "Quick Install Package..."
 to pop open the installer dialog box.
 
 ![Context menu](art/context-menu.png)
 
-### Choose package manager
+## Choose package manager
 
 Select which package manager to use.
 
@@ -39,7 +39,7 @@ Select which package manager to use.
 
 You choice is remembered for next time you open the dialog.
 
-### Auto completion
+## Auto completion
 
 You get full auto completion for all package names available
 in the Bower, npm, JSPM, TSD and NuGet registries.
@@ -50,7 +50,7 @@ Also for version numbers for both Bower and npm:
 
 ![auto completion](art/dialog-versions.png)
 
-### Custom arguments
+## Custom arguments
 You can specify any custom arguments to the package managers
 that support it.
 
@@ -61,7 +61,7 @@ the Options dialog.
 
 ![Options](art/options.png)
 
-### DefinatelyTyped package manager (TSD)
+## DefinatelyTyped package manager (TSD)
 You must install TSD using npm in order for the TSD package manager
 to work.
 
@@ -74,14 +74,27 @@ npm install tsd -g
 Now TSD is installed globally on the system and this extension
 can use it.
 
-### bower.json / package.json
+## bower.json / package.json
 
 You can install packages without having set up Bower, JSPM or npm.
 
 This extension will automatically create the JSON configuration
 files, so you don't have to worry about it.
 
-### Keyboard shortcut
+## Keyboard shortcut
 
 The fastest way to display the dialog is to use the keyboard
 shortcut `Shift+Alt+0`.
+
+## Contribute
+Check out the [contribution guidelines](.github/CONTRIBUTING.md)
+if you want to contribute to this project.
+
+For cloning and building this project yourself, make sure 
+to install the
+[Extensibility Tools 2015](https://visualstudiogallery.msdn.microsoft.com/ab39a092-1343-46e2-b0f1-6a3f91155aa6)
+extension for Visual Studio which enables some features
+used by this project.
+
+## License
+[Apache 2.0](LICENSE) 
