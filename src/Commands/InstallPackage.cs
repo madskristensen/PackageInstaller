@@ -25,15 +25,6 @@ namespace PackageInstaller
             }
         }
 
-        private void BeforeQueryStatus(object sender, EventArgs e)
-        {
-            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
-            var button = (OleMenuCommand)sender;
-            _project = ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
-
-            button.Enabled = button.Visible = _project != null;
-        }
-
         public static InstallPackage Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
@@ -44,6 +35,15 @@ namespace PackageInstaller
         public static void Initialize(Package package)
         {
             Instance = new InstallPackage(package);
+        }
+
+        private void BeforeQueryStatus(object sender, EventArgs e)
+        {
+            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
+            var button = (OleMenuCommand)sender;
+            _project = ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
+
+            button.Enabled = button.Visible = _project != null;
         }
 
         private async void ShowInstallDialog(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace PackageInstaller
             VSPackage.AnimateStatusBar(true);
             VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
-            await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version);
+            await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
 
             Logger.PackageInstall(dialog.Provider.Name, dialog.Package);
 

@@ -1,9 +1,10 @@
 ﻿<Window x:Class="PackageInstaller.InstallDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Quick Install Package" Height="142" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
+        Title="Quick Install Package" Height="149.1" Width="471" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="Height">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
@@ -13,7 +14,7 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <ComboBox x:Name="cbType" Grid.Row="0" Grid.Column="0" Margin="10,0" VerticalAlignment="Center" Width="90">
+        <ComboBox x:Name="cbType" Grid.Row="0" Grid.Column="0" Margin="10,0" VerticalAlignment="Bottom" Width="90">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -23,14 +24,14 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="cbName" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Stretch" IsEditable="True" TextBoxBase.TextChanged="cbName_TextChanged">
+        <ComboBox x:Name="cbName" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VerticalAlignment="Bottom" Margin="10,0" HorizontalAlignment="Stretch" IsEditable="True" TextBoxBase.TextChanged="cbName_TextChanged">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <ComboBox x:Name="cbVersion" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="10,0" VerticalAlignment="Center" Width="120" SelectedIndex="0" IsEditable="True" IsEnabled="False" MaxDropDownHeight="200">
+        <ComboBox x:Name="cbVersion" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="10,0" VerticalAlignment="Bottom" Width="120" SelectedIndex="0" IsEditable="True" IsEnabled="False" MaxDropDownHeight="200" SelectionChanged="cbVersion_SelectionChanged">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
@@ -38,7 +39,12 @@
             </ComboBox.ItemsPanel>
         </ComboBox>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="0 10">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 5">
+            <Label x:Name="lblCommand" Content="Command text" HorizontalAlignment="Left" VerticalAlignment="Center" FontStyle="Oblique"/>
+            <TextBox x:Name="txtArguments" Text="arguments" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="150" FontStyle="Oblique" BorderThickness="0,0,0,0" TextDecorations="{x:Null}" FontWeight="DemiBold" />
+        </StackPanel>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Margin="0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />

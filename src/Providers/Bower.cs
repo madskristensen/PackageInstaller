@@ -29,6 +29,11 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
+        public override string DefaultArguments
+        {
+            get { return VSPackage.Settings.BowerArguments; }
+        }
+
         public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "bower-registry.txt");
@@ -76,12 +81,11 @@ namespace PackageInstaller
             return list;
         }
 
-        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
         {
-            if (!string.IsNullOrEmpty(version))
-                packageName += $"#{version}";
+            string installArgs = GetInstallArguments(packageName, version);
 
-            string arg = $"/c bower install {packageName} --no-color {VSPackage.Settings.BowerArugments}";
+            string arg = $"/c {installArgs} --no-color {args}";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "bower.json");
 
@@ -93,6 +97,16 @@ namespace PackageInstaller
             }
 
             return await CallCommand(arg, cwd);
+        }
+
+        public override string GetInstallArguments(string name, string version)
+        {
+            string args = $"bower install {name}";
+
+            if (!string.IsNullOrEmpty(version))
+                args = $"{args}#{version}";
+
+            return args;
         }
 
         private static async Task<IEnumerable<string>> UpdateFileCache(string file, string url)
@@ -124,7 +138,7 @@ namespace PackageInstaller
                             File.WriteAllLines(file, list);
                         }
                     }
-                    catch (Exception) {}
+                    catch (Exception) { }
 
                     _isDownloading = false;
                 });
@@ -137,14 +151,15 @@ namespace PackageInstaller
         {
             var array = JArray.Parse(json);
 
-            return from obj in array
-                   let children = obj.Children<JProperty>()
-                   let name = children.First(prop => prop.Name == "name").Value.ToString()
-                   let stars = int.Parse(children.First(prop => prop.Name == "stars").Value.ToString())
-                   let updated = DateTime.Parse(children.First(prop => prop.Name == "updated").Value.ToString())
-                   where stars > 3 && updated > DateTime.Now.AddMonths(-6)
-                   orderby name, stars descending
-                   select name;
+            var names = from obj in array
+                        let children = obj.Children<JProperty>()
+                        let name = children.First(prop => prop.Name == "name").Value.ToString()
+                        let stars = int.Parse(children.First(prop => prop.Name == "stars").Value.ToString())
+                        let updated = DateTime.Parse(children.First(prop => prop.Name == "updated").Value.ToString())
+                        where stars > 3 && updated > DateTime.Now.AddMonths(-6)
+                        select name;
+
+            return names.OrderBy(name => name, new PackageNameComparer());
         }
     }
 }

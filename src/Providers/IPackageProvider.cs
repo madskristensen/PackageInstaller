@@ -11,9 +11,11 @@ namespace PackageInstaller
 
         ImageSource Icon { get;  }
 
+        string DefaultArguments { get; }
+
         Task<IEnumerable<string>> GetPackages(string term = null);
 
-        Task<bool> InstallPackage(Project project, string packageName, string version);
+        Task<bool> InstallPackage(Project project, string packageName, string version, string args = null);
 
         Task<IEnumerable<string>> GetVersion(string packageName);
 
@@ -21,5 +23,7 @@ namespace PackageInstaller
         /// Tells the installer to request packages on every keystroke
         /// </summary>
         bool EnableDynamicSearch { get; }
+
+        string GetInstallArguments(string name, string version);
     }
 }

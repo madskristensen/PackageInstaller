@@ -15,9 +15,11 @@ namespace PackageInstaller
 
         public abstract ImageSource Icon { get; }
 
+        public abstract string DefaultArguments { get; }
+
         public abstract Task<IEnumerable<string>> GetPackages(string term = null);
 
-        public abstract Task<bool> InstallPackage(Project project, string packageName, string version);
+        public abstract Task<bool> InstallPackage(Project project, string packageName, string version, string args = null);
 
         public abstract Task<IEnumerable<string>> GetVersion(string packageName);
 
@@ -91,6 +93,11 @@ namespace PackageInstaller
         public override string ToString()
         {
             return Name;
+        }
+
+        public virtual string GetInstallArguments(string name, string version)
+        {
+            return null;
         }
     }
 }

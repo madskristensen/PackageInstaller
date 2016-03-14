@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Helpers\PackageNameComparer.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="Commands\InstallPackage.cs" />
     <Compile Include="Logger.cs" />

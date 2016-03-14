@@ -30,6 +30,11 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
+        public override string DefaultArguments
+        {
+            get { return null; }
+        }
+
         public override bool EnableDynamicSearch
         {
             get { return true; }
@@ -61,7 +66,7 @@ namespace PackageInstaller
             return await System.Threading.Tasks.Task.FromResult(Enumerable.Empty<string>());
         }
 
-        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
         {
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
             var installer = componentModel.GetService<IVsPackageInstaller>();

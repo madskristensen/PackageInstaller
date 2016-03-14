@@ -26,6 +26,11 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
+        public override string DefaultArguments
+        {
+            get { return VSPackage.Settings.NpmArguments; }
+        }
+
         public override bool EnableDynamicSearch
         {
             get { return true; }
@@ -82,18 +87,18 @@ namespace PackageInstaller
 
             var props = time.Children<JProperty>();
 
-            return from version in props
-                   where char.IsNumber(version.Name[0])
-                   orderby version.Name descending
-                   select version.Name;
+            var names = from version in props
+                        where char.IsNumber(version.Name[0])
+                        select version.Name;
+
+            return names.OrderBy(name => name, new PackageNameComparer());
         }
 
-        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
         {
-            if (!string.IsNullOrEmpty(version))
-                packageName += $"@{version}";
+            string installArgs = GetInstallArguments(packageName, version);
 
-            string arg = $"/c npm install {packageName} {VSPackage.Settings.NpmArugments}";
+            string arg = $"/c {installArgs} {args}";
             string cwd = project.GetRootFolder();
             string json = Path.Combine(cwd, "package.json");
 
@@ -106,6 +111,16 @@ namespace PackageInstaller
 
             AddAdditionalFiles(project, cwd, packageName);
             return await CallCommand(arg, cwd);
+        }
+
+        public override string GetInstallArguments(string name, string version)
+        {
+            string args = $"npm install {name}";
+
+            if (!string.IsNullOrEmpty(version))
+                args = $"{args}@{version}";
+
+            return args;
         }
 
         private static void AddAdditionalFiles(Project project, string cwd, string packageName)

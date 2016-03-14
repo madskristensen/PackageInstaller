@@ -26,6 +26,11 @@ namespace PackageInstaller
             get { return _icon; }
         }
 
+        public override string DefaultArguments
+        {
+            get { return VSPackage.Settings.TsdArguments; }
+        }
+
         public override async Task<IEnumerable<string>> GetPackages(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "tsd-registry.txt");
@@ -39,15 +44,24 @@ namespace PackageInstaller
             return await Task.FromResult(Enumerable.Empty<string>());
         }
 
-        public override async Task<bool> InstallPackage(Project project, string packageName, string version)
+        public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
         {
-            if (!string.IsNullOrEmpty(version))
-                packageName += $"@{version}";
+            string installArgs = GetInstallArguments(packageName, version);
 
-            string arg = $"/c tsd install {packageName} {VSPackage.Settings.TsdArugments}";
+            string arg = $"/c {installArgs} {args}";
             string cwd = project.GetRootFolder();
 
             return await CallCommand(arg, cwd);
+        }
+
+        public override string GetInstallArguments(string name, string version)
+        {
+            string args = $"tsd install {name}";
+
+            if (!string.IsNullOrEmpty(version))
+                args = $"{args}@{version}";
+
+            return args;
         }
 
         private static async Task<IEnumerable<string>> UpdateFileCache(string file, string url)
@@ -92,8 +106,10 @@ namespace PackageInstaller
         {
             var doc = JObject.Parse(json);
 
-            return ((JArray)doc["content"])
-                      .Select(prop => prop["name"].Value<string>());
+            var names = ((JArray)doc["content"])
+                        .Select(prop => prop["name"].Value<string>());
+
+            return names.OrderBy(name => name, new PackageNameComparer());
         }
     }
 }

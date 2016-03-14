@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
 
@@ -16,6 +17,7 @@ namespace PackageInstaller
         private string _lastSearch;
         private const string LATEST = "Latest version";
         private const string LOADING = "Loading...";
+        private const string NO_ARGS = "<args>";
         private static string[] _tips = new[] {
             "Tip: Type 'b:' to select Bower from dropdown",
             "Tip: Type 'j:' to select JSPM from dropdown",
@@ -43,7 +45,7 @@ namespace PackageInstaller
 
                 cbType.ItemsSource = _providers;
                 cbType.SelectionChanged += TypeChanged;
-                SetRandomTip();
+                txtArguments.GotFocus += delegate { Dispatcher.BeginInvoke(new Action(() => { txtArguments.SelectAll(); }), DispatcherPriority.SystemIdle, null); };
 
                 string lastUsed = GetLastUsed();
 
@@ -57,6 +59,9 @@ namespace PackageInstaller
                     if (provider != null)
                         cbType.SelectedItem = provider;
                 }
+
+                SetRandomTip();
+                SetInstallArguments();
             };
         }
 
@@ -85,6 +90,8 @@ namespace PackageInstaller
 
             if (string.IsNullOrWhiteSpace(cbVersion.Text))
                 cbVersion.SelectedIndex = 0;
+
+            SetInstallArguments();
         }
 
         private void TypeChanged(object sender, SelectionChangedEventArgs e)
@@ -93,14 +100,23 @@ namespace PackageInstaller
             IPackageProvider provider = (IPackageProvider)box.SelectedItem;
 
             cbName.ItemsSource = null;
+            txtArguments.Text = NO_ARGS;
 
             SetRandomTip();
             GetPackages();
+
+            txtArguments.Text = string.IsNullOrWhiteSpace(Provider?.DefaultArguments) ? NO_ARGS : Provider.DefaultArguments;
+            SetInstallArguments();
         }
 
         public string Package
         {
             get { return cbName.Text; }
+        }
+
+        public string Arguments
+        {
+            get { return txtArguments.Text.Replace(NO_ARGS, string.Empty).Trim(); }
         }
 
         public IPackageProvider Provider
@@ -170,6 +186,34 @@ namespace PackageInstaller
 
             if (Provider.EnableDynamicSearch)
                 GetPackages();
+
+            SetInstallArguments();
+        }
+
+        private void cbVersion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetInstallArguments();
+        }
+
+        private void SetInstallArguments()
+        {
+            lblCommand.Visibility = Visibility.Hidden;
+            txtArguments.Visibility = Visibility.Hidden;
+
+            if (Provider == null)
+                return;
+
+            if (!string.IsNullOrEmpty(Package))
+            {
+                string installArgs = Provider.GetInstallArguments(Package, Version);
+
+                if (!string.IsNullOrEmpty(installArgs))
+                {
+                    lblCommand.Content = installArgs;
+                    lblCommand.Visibility = Visibility.Visible;
+                    txtArguments.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         private string GetLastUsed()
