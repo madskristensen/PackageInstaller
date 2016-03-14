@@ -190,7 +190,7 @@ namespace PackageInstaller
             SetInstallArguments();
         }
 
-        private void cbVersion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbVersion_TextChanged(object sender, RoutedEventArgs e)
         {
             SetInstallArguments();
         }

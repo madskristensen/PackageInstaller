@@ -31,7 +31,7 @@
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <ComboBox x:Name="cbVersion" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="10,0" VerticalAlignment="Bottom" Width="120" SelectedIndex="0" IsEditable="True" IsEnabled="False" MaxDropDownHeight="200" SelectionChanged="cbVersion_SelectionChanged">
+        <ComboBox x:Name="cbVersion" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="10,0" VerticalAlignment="Bottom" Width="120" SelectedIndex="0" IsEditable="True" IsEnabled="False" MaxDropDownHeight="200" TextBoxBase.TextChanged="cbVersion_TextChanged">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
