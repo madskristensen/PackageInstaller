@@ -36,8 +36,8 @@ namespace PackageInstaller
 
         [Category(Vsix.Name)]
         [DisplayName("Typings arguments")]
-        [Description("Additional arguments to pass to the 'typings install <packagename>' command. Example: --save")]
-        [DefaultValue("-save")]
-        public string TypingsArguments { get; set; } = "--save";
+        [Description("Additional arguments to pass to the 'typings install <packagename>' command. Example:  --ambient --save")]
+        [DefaultValue(" --ambient --save")]
+        public string TypingsArguments { get; set; } = " --ambient --save";
     }
 }

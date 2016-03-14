@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -78,7 +79,7 @@ namespace PackageInstaller
 
         public override string GetInstallArguments(string name, string version)
         {
-            string args = $"typings install {name} --ambient";
+            string args = $"typings install {name}";
 
             if (!string.IsNullOrEmpty(version))
                 args = $"{args}@{version}";

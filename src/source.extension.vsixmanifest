@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="1.5" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Package Installer</DisplayName>
-        <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM, TSD and NuGet packages to any project</Description>
+        <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM, TSD, Typings and NuGet packages to any project</Description>
         <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74</MoreInfo>
         <License>Resources\LICENSE</License>
         <ReleaseNotes>https://github.com/madskristensen/PackageInstaller/blob/master/CHANGELOG.md</ReleaseNotes>
