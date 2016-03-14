@@ -54,7 +54,7 @@ namespace PackageInstaller
             if (project == null)
                 return;
 
-            InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd());
+            InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd(), new Typings());
 
             var hwnd = new IntPtr(dte.MainWindow.HWnd);
             System.Windows.Window window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;

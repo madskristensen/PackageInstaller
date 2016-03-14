@@ -64,6 +64,7 @@
       <DependentUpon>InstallDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\BasePackageProvider.cs" />
+    <Compile Include="Providers\Typings.cs" />
     <Compile Include="Providers\Tsd.cs" />
     <Compile Include="Providers\NuGet.cs" />
     <Compile Include="Providers\Jspm.cs" />
@@ -88,6 +89,7 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\typings.png" />
     <Content Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Content>

@@ -23,7 +23,7 @@ namespace PackageInstaller
             "Tip: Type 'j:' to select JSPM from dropdown",
             "Tip: Type 'nu:' to select NuGet from dropdown",
             "Tip: Type 'n:' to select npm from dropdown",
-            "Tip: Type 't:' to select TSD from dropdown",
+            "Tip: Type 'ty:' to select Typings from dropdown",
         };
 
         public InstallDialog(IServiceProvider serviceProvider, params IPackageProvider[] providers)

@@ -33,5 +33,11 @@ namespace PackageInstaller
         [Description("Additional arguments to pass to the 'tsd install <packagename>' command. Example: -s")]
         [DefaultValue("-s")]
         public string TsdArguments { get; set; } = "-s";
+
+        [Category(Vsix.Name)]
+        [DisplayName("Typings arguments")]
+        [Description("Additional arguments to pass to the 'typings install <packagename>' command. Example: --save")]
+        [DefaultValue("-save")]
+        public string TypingsArguments { get; set; } = "--save";
     }
 }
