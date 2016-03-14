@@ -50,6 +50,17 @@ Also for version numbers for both Bower and npm:
 
 ![auto completion](art/dialog-versions.png)
 
+### Custom arguments
+You can specify any custom arguments to the package managers
+that support it.
+
+![Dialog Arguments](art/dialog-arguments.png)
+
+The default arguments for each package manager can be set in
+the Options dialog. 
+
+![Options](art/options.png)
+
 ### DefinatelyTyped package manager (TSD)
 You must install TSD using npm in order for the TSD package manager
 to work.
@@ -69,14 +80,6 @@ You can install packages without having set up Bower, JSPM or npm.
 
 This extension will automatically create the JSON configuration
 files, so you don't have to worry about it.
-
-### Customize arguments
-Specifying what parameters to use for each of the package managers
-can be done in the options page;
-
-![Options](art/options.png)
-
-This give you complete control over how each package is installed.
 
 ### Keyboard shortcut
 
