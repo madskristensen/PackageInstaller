@@ -1,9 +1,5 @@
 # Roadmap
 
-- [x] Add textbox for arguments
-- [x] Better sorting of package names
-- [x] Version number completion for NuGet
-- [x] Support for Typings (#7)
 - [ ] Implement better auto-completion mechanism
 
 Features that have a checkmark are complete and available for
@@ -14,6 +10,15 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.6
+
+**2016-03-14**
+
+- [x] Add textbox for arguments
+- [x] Better sorting of package names
+- [x] Version number completion for NuGet
+- [x] Support for Typings (#7)
 
 ## 1.5
 
