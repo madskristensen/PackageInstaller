@@ -43,7 +43,7 @@ in the Bower, npm, JSPM, TSD and NuGet registries.
 
 ![auto completion](art/dialog-names.png)
 
-Also for version numbers for both Bower and npm:
+Also for version numbers for both NuGet, Bower and npm:
 
 ![auto completion](art/dialog-versions.png)
 

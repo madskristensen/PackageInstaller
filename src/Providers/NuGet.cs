@@ -53,17 +53,23 @@ namespace PackageInstaller
             }
         }
 
+        public async override Task<IEnumerable<string>> GetVersion(string packageName)
+        {
+            string url = $"http://api-v3search-0.nuget.org/autocomplete?id={Uri.EscapeUriString(packageName)}&prerelease=true";
+
+            using (var client = new WebClient())
+            {
+                string json = await client.DownloadStringTaskAsync(url);
+                return ToList(json).Reverse();
+            }
+        }
+
         private static IEnumerable<string> ToList(string json)
         {
             var root = JObject.Parse(json);
             var array = (JArray)root["data"];
 
             return array.Select(a => a.ToString());
-        }
-
-        public async override Task<IEnumerable<string>> GetVersion(string packageName)
-        {
-            return await System.Threading.Tasks.Task.FromResult(Enumerable.Empty<string>());
         }
 
         public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
