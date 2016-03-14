@@ -57,7 +57,9 @@ namespace PackageInstaller
                 var root = JObject.Parse(json);
                 var array = (JArray)root["sections"]["packages"];
 
-                return array.Select(a => a["value"].ToString());
+                var names = array.Select(a => a["value"].ToString());
+
+                return names.OrderBy(name => name, new PackageNameComparer());
             }
             catch (Exception ex)
             {
@@ -87,11 +89,10 @@ namespace PackageInstaller
 
             var props = time.Children<JProperty>();
 
-            var names = from version in props
-                        where char.IsNumber(version.Name[0])
-                        select version.Name;
-
-            return names.OrderBy(name => name, new PackageNameComparer());
+            return from version in props
+                   where char.IsNumber(version.Name[0])
+                   orderby version.Name descending
+                   select version.Name;
         }
 
         public override async Task<bool> InstallPackage(Project project, string packageName, string version, string args = null)
