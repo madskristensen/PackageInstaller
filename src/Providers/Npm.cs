@@ -36,7 +36,7 @@ namespace PackageInstaller
             get { return true; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages(string term = null)
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
         {
             if (string.IsNullOrEmpty(term))
                 return Enumerable.Empty<string>();
@@ -68,7 +68,7 @@ namespace PackageInstaller
             }
         }
 
-        public async override Task<IEnumerable<string>> GetVersion(string packageName)
+        public async override Task<IEnumerable<string>> GetVersionInternal(string packageName)
         {
             if (string.IsNullOrEmpty(packageName))
                 return Enumerable.Empty<string>();

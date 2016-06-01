@@ -33,7 +33,7 @@ namespace PackageInstaller
             get { return VSPackage.Settings.JspmArguments; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages(string term = null)
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "jspm-registry.txt");
             string url = "https://raw.githubusercontent.com/jspm/registry/master/registry.json";
@@ -41,7 +41,7 @@ namespace PackageInstaller
             return await UpdateFileCache(file, url);
         }
 
-        public async override Task<IEnumerable<string>> GetVersion(string packageName)
+        public async override Task<IEnumerable<string>> GetVersionInternal(string packageName)
         {
             return await Task.FromResult(Enumerable.Empty<string>());
         }

@@ -34,7 +34,7 @@ namespace PackageInstaller
             get { return VSPackage.Settings.BowerArguments; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages(string term = null)
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
         {
             string file = Path.Combine(Path.GetTempPath(), "bower-registry.txt");
             string url = "https://bower-component-list.herokuapp.com/";
@@ -44,7 +44,7 @@ namespace PackageInstaller
 
         private static Regex _regex = new Regex(@"([\s]+)- (?<version>(\d)([\S]+))", RegexOptions.Compiled);
 
-        public async override Task<IEnumerable<string>> GetVersion(string packageName)
+        public async override Task<IEnumerable<string>> GetVersionInternal(string packageName)
         {
             if (_versions.ContainsKey(packageName))
                 return _versions[packageName];

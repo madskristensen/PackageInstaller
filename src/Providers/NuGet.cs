@@ -40,7 +40,7 @@ namespace PackageInstaller
             get { return true; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackages(string term)
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term)
         {
             // The API index: https://api.nuget.org/v3/index.json
             string endpoint = "https://api-v3search-0.nuget.org/autocomplete?q=";
@@ -53,7 +53,7 @@ namespace PackageInstaller
             }
         }
 
-        public async override Task<IEnumerable<string>> GetVersion(string packageName)
+        public async override Task<IEnumerable<string>> GetVersionInternal(string packageName)
         {
             string url = $"http://api-v3search-0.nuget.org/autocomplete?id={Uri.EscapeUriString(packageName)}&prerelease=true";
 

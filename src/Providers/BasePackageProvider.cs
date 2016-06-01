@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -17,11 +18,39 @@ namespace PackageInstaller
 
         public abstract string DefaultArguments { get; }
 
-        public abstract Task<IEnumerable<string>> GetPackages(string term = null);
+        public virtual async Task<IEnumerable<string>> GetPackages(string term = null)
+        {
+            try
+            {
+                return await GetPackagesInternal(term);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        public abstract Task<IEnumerable<string>> GetPackagesInternal(string term = null);
 
         public abstract Task<bool> InstallPackage(Project project, string packageName, string version, string args = null);
 
-        public abstract Task<IEnumerable<string>> GetVersion(string packageName);
+        public async Task<IEnumerable<string>> GetVersion(string packageName)
+        {
+            try
+            {
+                return await GetVersionInternal(packageName);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        public abstract Task<IEnumerable<string>> GetVersionInternal(string packageName);
 
         public virtual bool EnableDynamicSearch { get { return false; } }
 
@@ -83,8 +112,19 @@ namespace PackageInstaller
             if (Directory.Exists(toolsDir))
             {
                 string parent = Directory.GetParent(toolsDir).Parent.FullName;
-                path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External");
-                path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External\git");
+
+                string rc2Preview1Path = new DirectoryInfo(Path.Combine(parent, @"..\Web\External")).FullName;
+
+                if (Directory.Exists(rc2Preview1Path))
+                {
+                    path += ";" + rc2Preview1Path;
+                    path += ";" + rc2Preview1Path + "\\git";
+                }
+                else
+                {
+                    path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External");
+                    path += ";" + Path.Combine(parent, @"IDE\Extensions\Microsoft\Web Tools\External\git");
+                }
             }
 
             start.EnvironmentVariables["PATH"] = path;
