@@ -36,11 +36,8 @@ namespace PackageInstaller
             get { return true; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term)
         {
-            if (string.IsNullOrEmpty(term))
-                return Enumerable.Empty<string>();
-
             string url = $"https://ac.cnstrc.com/autocomplete/{Uri.EscapeUriString(term)}?autocomplete_key=CD06z4gVeqSXRiDL2ZNK";
 
             using (var client = new WebClient())

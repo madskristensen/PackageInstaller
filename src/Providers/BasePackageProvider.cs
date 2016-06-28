@@ -18,8 +18,11 @@ namespace PackageInstaller
 
         public abstract string DefaultArguments { get; }
 
-        public virtual async Task<IEnumerable<string>> GetPackages(string term = null)
+        public virtual async Task<IEnumerable<string>> GetPackages(string term)
         {
+            if (string.IsNullOrEmpty(term))
+                return Enumerable.Empty<string>();
+
             try
             {
                 return await GetPackagesInternal(term);

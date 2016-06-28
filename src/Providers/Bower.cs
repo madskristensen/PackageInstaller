@@ -34,12 +34,20 @@ namespace PackageInstaller
             get { return VSPackage.Settings.BowerArguments; }
         }
 
-        public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
+        public override bool EnableDynamicSearch
         {
-            string file = Path.Combine(Path.GetTempPath(), "bower-registry.txt");
-            string url = "https://bower-component-list.herokuapp.com/";
+            get { return true; }
+        }
 
-            return await UpdateFileCache(file, url);
+        public override async Task<IEnumerable<string>> GetPackagesInternal(string term)
+        {
+            string url = $"https://libraries.io/api/bower-search?q={Uri.EscapeUriString(term)}";
+
+            using (var client = new WebClient())
+            {
+                string json = await client.DownloadStringTaskAsync(url);
+                return ToList(json);
+            }
         }
 
         private static Regex _regex = new Regex(@"([\s]+)- (?<version>(\d)([\S]+))", RegexOptions.Compiled);
@@ -109,44 +117,6 @@ namespace PackageInstaller
             return args;
         }
 
-        private static async Task<IEnumerable<string>> UpdateFileCache(string file, string url)
-        {
-            if (!File.Exists(file))
-            {
-                using (var client = new WebClient())
-                {
-                    string json = await client.DownloadStringTaskAsync(url);
-                    var list = ToList(json);
-                    File.WriteAllLines(file, list);
-
-                    return list;
-                }
-            }
-
-            if (!_isDownloading && File.GetLastWriteTime(file) < DateTime.Now.AddDays(-1))
-            {
-                _isDownloading = true;
-
-                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-                {
-                    try
-                    {
-                        using (var client = new WebClient())
-                        {
-                            string json = client.DownloadString(url);
-                            var list = ToList(json);
-                            File.WriteAllLines(file, list);
-                        }
-                    }
-                    catch (Exception) { }
-
-                    _isDownloading = false;
-                });
-            }
-
-            return await Task.Run(() => File.ReadAllLines(file));
-        }
-
         private static IEnumerable<string> ToList(string json)
         {
             var array = JArray.Parse(json);
@@ -155,11 +125,11 @@ namespace PackageInstaller
                         let children = obj.Children<JProperty>()
                         let name = children.First(prop => prop.Name == "name").Value.ToString()
                         let stars = int.Parse(children.First(prop => prop.Name == "stars").Value.ToString())
-                        let updated = DateTime.Parse(children.First(prop => prop.Name == "updated").Value.ToString())
-                        where stars > 3 && updated > DateTime.Now.AddMonths(-6)
+                        where stars > 3
+                        orderby stars descending
                         select name;
 
-            return names.OrderBy(name => name, new PackageNameComparer());
+            return names;
         }
     }
 }
