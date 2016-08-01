@@ -25,7 +25,7 @@ namespace PackageInstaller
             _dispatcher = Dispatcher.CurrentDispatcher;
             Settings = (Settings)GetDialogPage(typeof(Settings));
 
-            Logger.Initialize(this, "Package Installer");
+            Logger.Initialize(this, Vsix.Name);
             InstallPackage.Initialize(this);
         }
 
