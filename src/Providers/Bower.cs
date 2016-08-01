@@ -31,7 +31,7 @@ namespace PackageInstaller
 
         public override string DefaultArguments
         {
-            get { return VSPackage.Settings.BowerArguments; }
+            get { return PackageInstallerPackage.Settings.BowerArguments; }
         }
 
         public override bool EnableDynamicSearch

@@ -65,14 +65,14 @@ namespace PackageInstaller
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
                 return;
 
-            VSPackage.AnimateStatusBar(true);
-            VSPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
+            PackageInstallerPackage.AnimateStatusBar(true);
+            PackageInstallerPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
             await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
 
             Logger.PackageInstall(dialog.Provider.Name, dialog.Package);
 
-            VSPackage.AnimateStatusBar(false);
+            PackageInstallerPackage.AnimateStatusBar(false);
         }
 
         private static Project GetActiveDocumentProject(DTE dte)

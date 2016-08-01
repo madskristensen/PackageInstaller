@@ -7,7 +7,7 @@ namespace PackageInstaller
 {
     static class ProjectHelpers
     {
-        private static DTE2 _dte = VSPackage._dte;
+        private static DTE2 _dte = PackageInstallerPackage._dte;
 
         public static Project GetSelectedProject()
         {

@@ -27,7 +27,7 @@ namespace PackageInstaller
 
         public override string DefaultArguments
         {
-            get { return VSPackage.Settings.TypingsArguments; }
+            get { return PackageInstallerPackage.Settings.TypingsArguments; }
         }
 
         public override bool EnableDynamicSearch

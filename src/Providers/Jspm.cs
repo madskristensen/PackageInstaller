@@ -30,7 +30,7 @@ namespace PackageInstaller
 
         public override string DefaultArguments
         {
-            get { return VSPackage.Settings.JspmArguments; }
+            get { return PackageInstallerPackage.Settings.JspmArguments; }
         }
 
         public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)
@@ -120,19 +120,19 @@ namespace PackageInstaller
 
                 if (string.IsNullOrEmpty(error))
                 {
-                    VSPackage._dte.StatusBar.Text = "Package installed";
+                    PackageInstallerPackage._dte.StatusBar.Text = "Package installed";
                     return true;
                 }
                 else
                 {
-                    VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
+                    PackageInstallerPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
                     Logger.Log(error, true);
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                VSPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
+                PackageInstallerPackage._dte.StatusBar.Text = "An error installing package. See output window for details";
                 Logger.Log(ex, true);
                 return false;
             }

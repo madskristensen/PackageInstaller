@@ -28,7 +28,7 @@ namespace PackageInstaller
 
         public override string DefaultArguments
         {
-            get { return VSPackage.Settings.NpmArguments; }
+            get { return PackageInstallerPackage.Settings.NpmArguments; }
         }
 
         public override bool EnableDynamicSearch
@@ -148,7 +148,7 @@ namespace PackageInstaller
                 try
                 {
                     File.WriteAllText(fullName, content);
-                    VSPackage._dte.ItemOperations.OpenFile(fullName);
+                    PackageInstallerPackage._dte.ItemOperations.OpenFile(fullName);
                     project.AddFileToProject(fullName, "None");
                 }
                 catch (Exception ex)

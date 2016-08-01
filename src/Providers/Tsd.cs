@@ -28,7 +28,7 @@ namespace PackageInstaller
 
         public override string DefaultArguments
         {
-            get { return VSPackage.Settings.TsdArguments; }
+            get { return PackageInstallerPackage.Settings.TsdArguments; }
         }
 
         public override async Task<IEnumerable<string>> GetPackagesInternal(string term = null)

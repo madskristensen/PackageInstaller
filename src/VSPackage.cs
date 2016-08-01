@@ -7,12 +7,12 @@ using Microsoft.VisualStudio.Shell;
 
 namespace PackageInstaller
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideOptionPage(typeof(Settings), "Web", Vsix.Name, 101, 111, true, new[] { "npm", "tsd", "jspm", "bower", "nuget" }, ProvidesLocalizedCategoryName = false)]
     [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    public sealed class VSPackage : Package
+    public sealed class PackageInstallerPackage : Package
     {
         public static DTE2 _dte;
         private static Dispatcher _dispatcher;

@@ -82,12 +82,12 @@ namespace PackageInstaller
                 try
                 {
                     installer.InstallPackage(null, project, packageName, (Version)null, false);
-                    VSPackage.UpdateStatus("Package installed");
+                    PackageInstallerPackage.UpdateStatus("Package installed");
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    VSPackage.UpdateStatus("An error installing package. See output window for details");
+                    PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
                     Logger.Log(ex);
                     return false;
                 }

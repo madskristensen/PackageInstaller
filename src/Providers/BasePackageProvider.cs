@@ -87,11 +87,11 @@ namespace PackageInstaller
 
                     if (p.ExitCode == 0)
                     {
-                        VSPackage.UpdateStatus("Package installed");
+                        PackageInstallerPackage.UpdateStatus("Package installed");
                     }
                     else
                     {
-                        VSPackage.UpdateStatus("An error installing package. See output window for details");
+                        PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
                         Logger.Log(error, true);
                     }
                 }
@@ -100,7 +100,7 @@ namespace PackageInstaller
             }
             catch (Exception ex)
             {
-                VSPackage.UpdateStatus("An error installing package. See output window for details");
+                PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
                 Logger.Log(ex, true);
                 return false;
             }
