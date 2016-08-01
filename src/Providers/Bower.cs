@@ -15,7 +15,6 @@ namespace PackageInstaller
 {
     class Bower : BasePackageProvider
     {
-        private static bool _isDownloading;
         private static ImageSource _icon = BitmapFrame.Create(new Uri("pack://application:,,,/PackageInstaller;component/Resources/bower.png", UriKind.RelativeOrAbsolute));
         private static Dictionary<string, IEnumerable<string>> _versions = new Dictionary<string, IEnumerable<string>>();
 

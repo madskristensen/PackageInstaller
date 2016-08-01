@@ -79,7 +79,7 @@ namespace PackageInstaller
 
         public override string GetInstallArguments(string name, string version)
         {
-            string args = $"typings install {name}";
+            string args = $"typings install dt~{name}";
 
             if (!string.IsNullOrEmpty(version))
                 args = $"{args}@{version}";
