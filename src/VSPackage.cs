@@ -20,7 +20,6 @@ namespace PackageInstaller
 
         protected override void Initialize()
         {
-            base.Initialize();
             _dte = GetService(typeof(DTE)) as DTE2;
             _dispatcher = Dispatcher.CurrentDispatcher;
             Settings = (Settings)GetDialogPage(typeof(Settings));

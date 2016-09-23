@@ -70,8 +70,6 @@ namespace PackageInstaller
 
             await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
 
-            Logger.PackageInstall(dialog.Provider.Name, dialog.Package);
-
             PackageInstallerPackage.AnimateStatusBar(false);
         }
 
