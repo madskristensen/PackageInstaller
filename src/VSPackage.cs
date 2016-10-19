@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Threading;
+using System.Windows;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using task = System.Threading.Tasks.Task;
 
 namespace PackageInstaller
 {
@@ -16,6 +17,7 @@ namespace PackageInstaller
     {
         public static DTE2 _dte;
         internal static Settings Settings;
+        private static StatusbarControl _control;
 
         protected override void Initialize()
         {
@@ -24,19 +26,34 @@ namespace PackageInstaller
 
             Logger.Initialize(this, Vsix.Name);
             InstallPackage.Initialize(this);
+
+            _control = new StatusbarControl(Settings, _dte);
+
+            var injector = new StatusBarInjector(Application.Current.MainWindow);
+            injector.InjectControl(_control);
         }
 
-        public static void UpdateStatus(string text)
+        public static async task UpdateStatus(string text)
         {
-            ThreadHelper.Generic.BeginInvoke(DispatcherPriority.ApplicationIdle, () =>
+            await ThreadHelper.Generic.InvokeAsync(() =>
             {
-                _dte.StatusBar.Text = text;
+                _control.Text = text;
+                _control.SetVisibility(Visibility.Visible);
             });
         }
 
-        public static void AnimateStatusBar(bool animate)
+        public static async task HideStatus(int wait = 0)
         {
-            ThreadHelper.Generic.BeginInvoke(DispatcherPriority.ApplicationIdle, () =>
+            if (wait > 0)
+                await task.Delay(wait);
+
+            _control.Text = "";
+            _control.SetVisibility(Visibility.Collapsed);
+        }
+
+        public static async task AnimateStatusBar(bool animate)
+        {
+            await ThreadHelper.Generic.InvokeAsync(() =>
             {
                 _dte.StatusBar.Animate(animate, vsStatusAnimation.vsStatusAnimationGeneral);
             });

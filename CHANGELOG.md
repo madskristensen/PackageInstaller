@@ -1,8 +1,6 @@
 # Roadmap
 
-- [ ] Persist the status bar message while installing
-- [x] Always clear status bar animation when done
-- [x] Yarn support
+- [ ] Nothing yet...
 
 Features that have a checkmark are complete and available for
 download in the
@@ -13,21 +11,21 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
-## 1.8
+## 2.0
 
-**2016-06-28**
+- [x] Persist the status bar message while installing
+- [x] Always clear status bar animation when done
+- [x] Yarn support
+
+## 1.8
 
 - [x] Using [libraries.io](http://libraries.io) for Bower completion
 
 ## 1.7
 
-**2016-05-02**
-
 - [x] Support for "VS15"
 
 ## 1.6
-
-**2016-03-14**
 
 - [x] Add textbox for arguments
 - [x] Better sorting of package names
@@ -36,13 +34,9 @@ on the official Visual Studio extension gallery.
 
 ## 1.5
 
-**2015-10-08**
-
 - [x] Setting to customize arguments for each package manager
 
 ## 1.4
-
-**2015-09-28**
 
 - [x] Move command next to "Manage NuGet Packages..."
 - [x] Added support for DefinatelyTyped package manager (TSD)
@@ -54,21 +48,15 @@ on the official Visual Studio extension gallery.
 
 ## 1.3
 
-**2015-09-11**
-
 - [x] npm package name Intellisense
 - [x] Keep dialog on top of Visual Studio
 
 ## 1.2
 
-**2015-08-24**
-
 - [x] NuGet integration
 - [x] Added `node_modules/.bin` to the path
 
 ## 1.1
-
-**2015-08-12**
 
 - [x] JSPM integration
 - [x] Create Grunt-/Gulp-/BrocFile.js automatically
@@ -76,8 +64,6 @@ on the official Visual Studio extension gallery.
 - [x] Store last used provider on re-entry
 
 ## 1.0
-
-**2015-08-10**
 
 - [x] Installs Bower and npm packages
 - [x] Automatically creates bower-/package.json if missing
