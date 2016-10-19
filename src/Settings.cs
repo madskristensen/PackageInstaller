@@ -44,6 +44,6 @@ namespace PackageInstaller
         [DisplayName("Yarn arguments")]
         [Description("Additional arguments to pass to the 'yarn add <packagename>' command. Example:  --dev")]
         [DefaultValue(" --dev")]
-        public string YarnArguments { get; internal set; } = " --dev";
+        public string YarnArguments { get; set; } = " --dev";
     }
 }

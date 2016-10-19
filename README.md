@@ -56,7 +56,7 @@ that support it.
 The default arguments for each package manager can be set in
 the Options dialog.
 
-![Options](art/options.png)
+![Options](art/options.png)![Options](art/options.png)
 
 ### Typescript typings
 In order to use TSD, it must be installed globally using npm.
