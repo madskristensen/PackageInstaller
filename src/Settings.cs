@@ -39,5 +39,11 @@ namespace PackageInstaller
         [Description("Additional arguments to pass to the 'typings install <packagename>' command. Example:  --global --save")]
         [DefaultValue(" --global --save")]
         public string TypingsArguments { get; set; } = " --global --save";
+
+        [Category(Vsix.Name)]
+        [DisplayName("Yarn arguments")]
+        [Description("Additional arguments to pass to the 'yarn add <packagename>' command. Example:  --dev")]
+        [DefaultValue(" --dev")]
+        public string YarnArguments { get; internal set; } = " --dev";
     }
 }

@@ -1,6 +1,8 @@
 # Roadmap
 
-- [ ] Nothing yet...
+- [ ] Persist the status bar message while installing
+- [x] Always clear status bar animation when done
+- [x] Yarn support
 
 Features that have a checkmark are complete and available for
 download in the

@@ -121,7 +121,7 @@
     <value>Package Installer</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Makes it easier, faster and more convenient than ever to install Bower, npm, JSPM, TSD, Typings and NuGet packages to any project</value>
+    <value>Makes it easier, faster and more convenient than ever to install Bower, npm, Yarn, JSPM, TSD, Typings and NuGet packages to any project</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

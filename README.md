@@ -10,13 +10,13 @@ or get the
 ------------------------------------------------
 
 A Visual Studio extension that makes it easy and fast to install
-Bower, npm, JSPM, TSD, Typings and NuGet packages.
+Bower, npm, Yarn, JSPM, TSD, Typings and NuGet packages.
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## Features
 
-- Supports Bower, npm, JSPM, TSD, Typings and NuGet
+- Supports Bower, npm, Yarn, JSPM, TSD, Typings and NuGet
 - Works for all project types including ASP.NET 5, WebForms, Website projects and more
 - Intellisense for package names and versions
 - Automatically creates package.json or bower.json if missing
@@ -39,11 +39,11 @@ You choice is remembered for next time you open the dialog.
 
 ### Auto completion
 You get full auto completion for all package names available
-in the Bower, npm, JSPM, TSD, Typings and NuGet registries.
+in the Bower, npm, Yarn, JSPM, TSD, Typings and NuGet registries.
 
 ![auto completion](art/dialog-names.png)
 
-Also for version numbers for both NuGet, Bower and npm:
+Also for version numbers for both NuGet, Bower, npm and Yarn:
 
 ![auto completion](art/dialog-versions.png)
 
@@ -78,7 +78,7 @@ npm install typings -g
 ```
 
 ### bower.json / package.json
-You can install packages without having set up Bower, JSPM or npm.
+You can install packages without having set up Bower, JSPM, npm or Yarn.
 
 This extension will automatically create the JSON configuration
 files, so you don't have to worry about it.

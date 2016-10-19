@@ -54,7 +54,7 @@ namespace PackageInstaller
             if (project == null)
                 return;
 
-            InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd(), new Typings());
+            InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd(), new Typings(), new Yarn());
 
             var hwnd = new IntPtr(dte.MainWindow.HWnd);
             System.Windows.Window window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;
@@ -65,12 +65,18 @@ namespace PackageInstaller
             if (!dialog.DialogResult.HasValue || !dialog.DialogResult.Value)
                 return;
 
-            PackageInstallerPackage.AnimateStatusBar(true);
-            PackageInstallerPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
+            try
+            {
+                PackageInstallerPackage.AnimateStatusBar(true);
+                PackageInstallerPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
+                Logger.Log($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
-            await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
-
-            PackageInstallerPackage.AnimateStatusBar(false);
+                await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
+            }
+            finally
+            {
+                PackageInstallerPackage.AnimateStatusBar(false);
+            }
         }
 
         private static Project GetActiveDocumentProject(DTE dte)

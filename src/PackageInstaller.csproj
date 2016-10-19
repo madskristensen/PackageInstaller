@@ -69,6 +69,7 @@
     <Compile Include="Providers\Npm.cs" />
     <Compile Include="Providers\Bower.cs" />
     <Compile Include="Providers\IPackageProvider.cs" />
+    <Compile Include="Providers\Yarn.cs" />
     <Compile Include="Settings.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -88,6 +89,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Resources\typings.png" />
+    <Resource Include="Resources\yarn.png" />
     <Content Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Content>
