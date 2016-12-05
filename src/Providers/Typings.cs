@@ -74,7 +74,7 @@ namespace PackageInstaller
             string arg = $"/c {installArgs} {args}";
             string cwd = project.GetRootFolder();
 
-            return await CallCommand(arg, cwd);
+            return await CallCommandAsync(arg, cwd);
         }
 
         public override string GetInstallArguments(string name, string version)

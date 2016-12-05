@@ -81,7 +81,7 @@ namespace PackageInstaller
             cbVersion.ItemsSource = new[] { LOADING };
             cbVersion.SelectedIndex = 0;
 
-            var versions = await Provider.GetVersion(cbName.Text.Trim());
+            var versions = await Provider.GetVersionAsync(cbName.Text.Trim());
 
             if (versions.Any())
                 cbVersion.ItemsSource = versions;
@@ -142,11 +142,11 @@ namespace PackageInstaller
             if (cbName.ItemsSource != null)
             {
                 var current = (IEnumerable<string>)cbName.ItemsSource;
-                source = current.Union(await Provider.GetPackages(cbName.Text)).OrderBy(s => s);
+                source = current.Union(await Provider.GetPackagesAsync(cbName.Text)).OrderBy(s => s);
             }
             else
             {
-                source = await Provider.GetPackages(cbName.Text);
+                source = await Provider.GetPackagesAsync(cbName.Text);
             }
 
             cbName.ItemsSource = source;

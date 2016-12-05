@@ -108,7 +108,7 @@ namespace PackageInstaller
             }
 
             AddAdditionalFiles(project, cwd, packageName);
-            return await CallCommand(arg, cwd);
+            return await CallCommandAsync(arg, cwd);
         }
 
         public override string GetInstallArguments(string name, string version)

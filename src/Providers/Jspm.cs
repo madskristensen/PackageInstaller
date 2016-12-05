@@ -63,7 +63,7 @@ namespace PackageInstaller
 
             if (IsJspmConfigured(json))
             {
-                return await CallCommand(arg, cwd);
+                return await CallCommandAsync(arg, cwd);
             }
             else
             {

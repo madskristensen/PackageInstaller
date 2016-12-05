@@ -103,7 +103,7 @@ namespace PackageInstaller
                 project.ProjectItems.AddFromFile(json);
             }
 
-            return await CallCommand(arg, cwd);
+            return await CallCommandAsync(arg, cwd);
         }
 
         public override string GetInstallArguments(string name, string version)

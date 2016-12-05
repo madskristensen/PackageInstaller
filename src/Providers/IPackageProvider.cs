@@ -13,11 +13,11 @@ namespace PackageInstaller
 
         string DefaultArguments { get; }
 
-        Task<IEnumerable<string>> GetPackages(string term = null);
+        Task<IEnumerable<string>> GetPackagesAsync(string term = null);
 
         Task<bool> InstallPackage(Project project, string packageName, string version, string args = null);
 
-        Task<IEnumerable<string>> GetVersion(string packageName);
+        Task<IEnumerable<string>> GetVersionAsync(string packageName);
 
         /// <summary>
         /// Tells the installer to request packages on every keystroke

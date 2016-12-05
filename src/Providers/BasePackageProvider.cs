@@ -18,7 +18,7 @@ namespace PackageInstaller
 
         public abstract string DefaultArguments { get; }
 
-        public virtual async Task<IEnumerable<string>> GetPackages(string term)
+        public virtual async Task<IEnumerable<string>> GetPackagesAsync(string term)
         {
             if (string.IsNullOrEmpty(term))
                 return Enumerable.Empty<string>();
@@ -39,7 +39,7 @@ namespace PackageInstaller
 
         public abstract Task<bool> InstallPackage(Project project, string packageName, string version, string args = null);
 
-        public async Task<IEnumerable<string>> GetVersion(string packageName)
+        public async Task<IEnumerable<string>> GetVersionAsync(string packageName)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace PackageInstaller
 
         public virtual bool EnableDynamicSearch { get { return false; } }
 
-        protected virtual async Task<bool> CallCommand(string argument, string cwd)
+        protected virtual async Task<bool> CallCommandAsync(string argument, string cwd)
         {
             ProcessStartInfo start = new ProcessStartInfo
             {

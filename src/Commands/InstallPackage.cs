@@ -19,7 +19,7 @@ namespace PackageInstaller
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(PackageGuids.guidVSPackageCmdSet, PackageIds.InstallPackageId);
-                var menuItem = new OleMenuCommand(ShowInstallDialog, menuCommandID);
+                var menuItem = new OleMenuCommand(ShowInstallDialogAsync, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
@@ -46,7 +46,7 @@ namespace PackageInstaller
             button.Enabled = button.Visible = _project != null;
         }
 
-        private async void ShowInstallDialog(object sender, EventArgs e)
+        private async void ShowInstallDialogAsync(object sender, EventArgs e)
         {
             var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
             Project project = _project ?? ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
