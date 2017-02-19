@@ -19,6 +19,8 @@ namespace PackageInstaller
     class NuGet : BasePackageProvider
     {
         private static ImageSource _icon = BitmapFrame.Create(new Uri("pack://application:,,,/PackageInstaller;component/Resources/nuget.png", UriKind.RelativeOrAbsolute));
+        // The API index: https://api.nuget.org/v3/index.json
+        private static string _baseUrl = "https://api-v2v3search-0.nuget.org/autocomplete";
 
         public override string Name
         {
@@ -42,9 +44,7 @@ namespace PackageInstaller
 
         public override async Task<IEnumerable<string>> GetPackagesInternal(string term)
         {
-            // The API index: https://api.nuget.org/v3/index.json
-            string endpoint = "https://api-v3search-0.nuget.org/autocomplete?q=";
-            string url = endpoint + Uri.EscapeUriString(term);
+            string url = $"{_baseUrl}?q={Uri.EscapeUriString(term)}";
 
             using (var client = new WebClient())
             {
@@ -55,7 +55,7 @@ namespace PackageInstaller
 
         public async override Task<IEnumerable<string>> GetVersionInternal(string packageName)
         {
-            string url = $"http://api-v3search-0.nuget.org/autocomplete?id={Uri.EscapeUriString(packageName)}&prerelease=true";
+            string url = $"{_baseUrl}?id={Uri.EscapeUriString(packageName)}&prerelease=true";
 
             using (var client = new WebClient())
             {
