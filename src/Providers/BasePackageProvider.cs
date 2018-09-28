@@ -87,11 +87,11 @@ namespace PackageInstaller
 
                     if (p.ExitCode == 0)
                     {
-                        await PackageInstallerPackage.UpdateStatus("Package installed");
+                        await PackageInstallerPackage.UpdateStatusAsync("Package installed");
                     }
                     else
                     {
-                        await PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
+                        await PackageInstallerPackage.UpdateStatusAsync("An error installing package. See output window for details");
                         Logger.Log(error, true);
                     }
                 }
@@ -100,7 +100,7 @@ namespace PackageInstaller
             }
             catch (Exception ex)
             {
-                await PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
+                await PackageInstallerPackage.UpdateStatusAsync("An error installing package. See output window for details");
                 Logger.Log(ex, true);
                 return false;
             }

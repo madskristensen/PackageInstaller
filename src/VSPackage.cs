@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using EnvDTE;
 using EnvDTE80;
@@ -13,15 +14,17 @@ namespace PackageInstaller
     [ProvideOptionPage(typeof(Settings), "Web", Vsix.Name, 101, 111, true, new[] { "npm", "tsd", "jspm", "bower", "nuget", "yarn" }, ProvidesLocalizedCategoryName = false)]
     [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    public sealed class PackageInstallerPackage : Package
+    public sealed class PackageInstallerPackage : AsyncPackage
     {
         public static DTE2 _dte;
         internal static Settings Settings;
         private static StatusbarControl _control;
 
-        protected override void Initialize()
+        protected override async task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            _dte = GetService(typeof(DTE)) as DTE2;
+            await JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            _dte = await GetServiceAsync(typeof(DTE)) as DTE2;
             Settings = (Settings)GetDialogPage(typeof(Settings));
 
             Logger.Initialize(this, Vsix.Name);
@@ -33,7 +36,7 @@ namespace PackageInstaller
             injector.InjectControl(_control);
         }
 
-        public static async task UpdateStatus(string text)
+        public static async task UpdateStatusAsync(string text)
         {
             await ThreadHelper.Generic.InvokeAsync(() =>
             {
@@ -42,7 +45,7 @@ namespace PackageInstaller
             });
         }
 
-        public static async task HideStatus(int wait = 0)
+        public static async task HideStatusAsync(int wait = 0)
         {
             if (wait > 0)
                 await task.Delay(wait);
@@ -51,7 +54,7 @@ namespace PackageInstaller
             _control.SetVisibility(Visibility.Collapsed);
         }
 
-        public static async task AnimateStatusBar(bool animate)
+        public static async task AnimateStatusBarAsync(bool animate)
         {
             await ThreadHelper.Generic.InvokeAsync(() =>
             {

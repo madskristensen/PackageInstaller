@@ -67,16 +67,16 @@ namespace PackageInstaller
 
             try
             {
-                await PackageInstallerPackage.AnimateStatusBar(true);
-                await PackageInstallerPackage.UpdateStatus($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
+                await PackageInstallerPackage.AnimateStatusBarAsync(true);
+                await PackageInstallerPackage.UpdateStatusAsync($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
                 Logger.Log($"Installing {dialog.Package} package from {dialog.Provider.Name}...");
 
                 await dialog.Provider.InstallPackage(project, dialog.Package, dialog.Version, dialog.Arguments);
             }
             finally
             {
-                await PackageInstallerPackage.AnimateStatusBar(false);
-                await PackageInstallerPackage.HideStatus(3000);
+                await PackageInstallerPackage.AnimateStatusBarAsync(false);
+                await PackageInstallerPackage.HideStatusAsync(3000);
             }
         }
 

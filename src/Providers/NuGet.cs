@@ -82,12 +82,12 @@ namespace PackageInstaller
                 try
                 {
                     installer.InstallPackage(null, project, packageName, (Version)null, false);
-                    await PackageInstallerPackage.UpdateStatus("Package installed");
+                    await PackageInstallerPackage.UpdateStatusAsync("Package installed");
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await PackageInstallerPackage.UpdateStatus("An error installing package. See output window for details");
+                    await PackageInstallerPackage.UpdateStatusAsync("An error installing package. See output window for details");
                     Logger.Log(ex);
                     return false;
                 }
