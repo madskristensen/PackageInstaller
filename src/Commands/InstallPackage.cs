@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Windows;
 using System.Windows.Interop;
 using EnvDTE;
+using EnvDTE80;
+using Microsoft;
 using Microsoft.VisualStudio.Shell;
 
 namespace PackageInstaller
@@ -39,7 +42,7 @@ namespace PackageInstaller
 
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
-            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
+            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
             var button = (OleMenuCommand)sender;
             _project = ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
 
@@ -48,7 +51,8 @@ namespace PackageInstaller
 
         private async void ShowInstallDialogAsync(object sender, EventArgs e)
         {
-            var dte = (DTE)ServiceProvider.GetService(typeof(DTE));
+            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
+            Assumes.Present(dte);
             Project project = _project ?? ProjectHelpers.GetSelectedProject() ?? GetActiveDocumentProject(dte);
 
             if (project == null)
@@ -56,9 +60,7 @@ namespace PackageInstaller
 
             InstallDialog dialog = new InstallDialog(ServiceProvider, new Bower(), new Jspm(), new Npm(), new NuGet(), new Tsd(), new Typings(), new Yarn());
 
-            var hwnd = new IntPtr(dte.MainWindow.HWnd);
-            System.Windows.Window window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;
-            dialog.Owner = window;
+            dialog.Owner = Application.Current.MainWindow;
 
             var result = dialog.ShowDialog();
 
@@ -80,7 +82,7 @@ namespace PackageInstaller
             }
         }
 
-        private static Project GetActiveDocumentProject(DTE dte)
+        private static Project GetActiveDocumentProject(DTE2 dte)
         {
             if (dte.ActiveWindow == null || dte.ActiveWindow.Type != vsWindowType.vsWindowTypeDocument)
                 return null;

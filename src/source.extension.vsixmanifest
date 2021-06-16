@@ -1,23 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="2.0" Language="en-US" Publisher="Mads Kristensen" />
-        <DisplayName>Package Installer</DisplayName>
-        <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, Yarn, JSPM, TSD, Typings and NuGet packages to any project</Description>
-        <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74</MoreInfo>
-        <License>Resources\LICENSE</License>
-        <ReleaseNotes>https://github.com/madskristensen/PackageInstaller/blob/master/CHANGELOG.md</ReleaseNotes>
-        <Icon>Resources\icon.png</Icon>
-        <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>npm, bower, jspm, nuget, tsd, DefinitelyTyped, Yarn</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[14.0,17.0)" />
-    </Installation>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
-    </Prerequisites>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="fdd64809-376e-4542-92ce-808a8df06bcc" Version="2.0.1" Language="en-US" Publisher="Mads Kristensen" />
+    <DisplayName>Package Installer</DisplayName>
+    <Description xml:space="preserve">Makes it easier, faster and more convenient than ever to install Bower, npm, Yarn, JSPM, TSD, Typings and NuGet packages to any project</Description>
+    <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74</MoreInfo>
+    <License>Resources\LICENSE</License>
+    <ReleaseNotes>https://github.com/madskristensen/PackageInstaller/blob/master/CHANGELOG.md</ReleaseNotes>
+    <Icon>Resources\icon.png</Icon>
+    <PreviewImage>Resources\preview.png</PreviewImage>
+    <Tags>npm, bower, jspm, nuget, tsd, DefinitelyTyped, Yarn</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,17.0)" />
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.0,18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>

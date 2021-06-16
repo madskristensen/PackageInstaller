@@ -8,14 +8,8 @@ namespace PackageInstaller
 {
     class StatusbarControl : TextBlock
     {
-        private Settings _options;
-        private DTE2 _dte;
-
-        public StatusbarControl(Settings options, DTE2 dte)
+        public StatusbarControl()
         {
-            _options = options;
-            _dte = dte;
-
             Foreground = Brushes.White;
             Margin = new Thickness(5, 4, 10, 0);
             FontWeight = FontWeights.SemiBold;

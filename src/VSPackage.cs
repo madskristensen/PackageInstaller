@@ -30,7 +30,7 @@ namespace PackageInstaller
             Logger.Initialize(this, Vsix.Name);
             InstallPackage.Initialize(this);
 
-            _control = new StatusbarControl(Settings, _dte);
+            _control = new StatusbarControl();
 
             var injector = new StatusBarInjector(Application.Current.MainWindow);
             injector.InjectControl(_control);
