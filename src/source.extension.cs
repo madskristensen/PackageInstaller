@@ -11,7 +11,7 @@ namespace PackageInstaller
         public const string Name = "Package Installer";
         public const string Description = @"Makes it easier, faster and more convenient than ever to install Bower, npm, Yarn, JSPM, TSD, Typings and NuGet packages to any project";
         public const string Language = "en-US";
-        public const string Version = "2.1.1";
+        public const string Version = "2.2.0";
         public const string Author = "Mads Kristensen";
         public const string Tags = "npm, bower, jspm, nuget, tsd, DefinitelyTyped, Yarn";
     }
